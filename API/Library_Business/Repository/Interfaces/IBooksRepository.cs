@@ -1,4 +1,5 @@
-﻿using Library_Data.Entities;
+﻿using Library_Business.Dtos;
+using Library_Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Library_Business.Repository.Interfaces
 {
     public interface IBooksRepository
     {
-        public Task<IEnumerable<Book>> GetAlBooks();
+        public Task<IEnumerable<BookDto>> GetAlBooks();
     }
 }
