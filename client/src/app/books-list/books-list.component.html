@@ -1,0 +1,42 @@
+<h4>Books</h4>
+<hr />
+
+<div class="container mt-3">
+  <div class="row">
+    <div class="col">
+      <input
+        placeholder="Search & Save City (City Name, State Name)"
+        class="form-control"
+      />
+    </div>
+  </div>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">State</th>
+        <th scope="col">Country</th>
+        <th scope="col">Long</th>
+        <th scope="col">Lat</th>
+        <th scope="col">#</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books">
+        <th scope="row">{{ book.count }}</th>
+        <td>{{ book.title }}</td>
+        <td>{{ book.publisher }}</td>
+        <td>{{ book.authorName }}</td>
+        <td>{{ book.totalPages }}</td>
+        <td>{{ book.description }}</td>
+        <td>{{ book.bookType }}</td>
+        <td>{{ book.category }}</td>
+        <td>{{ book.status }}</td>
+        <td>
+          <a class="card-link">Delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
