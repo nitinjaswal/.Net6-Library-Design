@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../_models/Book';
-import { BooksService } from '../_services/books.service';
+import { Book } from '../../_models/book';
+import { BooksService } from '../../_services/books.service';
 
 @Component({
   selector: 'app-books-list',
@@ -21,5 +21,4 @@ export class BooksListComponent implements OnInit {
       this.books = books;
     });
   }
-  
 }

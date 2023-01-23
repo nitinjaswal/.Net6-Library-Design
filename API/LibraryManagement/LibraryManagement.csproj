@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Library_Data\Library_Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ImagePath\" />
+  </ItemGroup>
+
 </Project>

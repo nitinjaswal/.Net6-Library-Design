@@ -8,6 +8,7 @@ namespace Library_Business.Dtos
 {
     public class BookDto
     {
+        public int Id { get; set; }
         public int BookCount { get; set; }
 
         public string Title { get; set; }
@@ -18,5 +19,6 @@ namespace Library_Business.Dtos
         public string BookType { get; set; }
         public string Category { get; set; }
         public string Status { get; set; }
+        public string ImagePath { get; set; }
     }
 }
