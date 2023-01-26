@@ -3,9 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.Controllers
 {
-    [Route("api/books")]
-    [ApiController]
-    public class BooksController: ControllerBase
+    public class BooksController: BaseApiController
     {
         private readonly IBooksRepository _booksRepository;
         public BooksController(IBooksRepository booksRepository)
