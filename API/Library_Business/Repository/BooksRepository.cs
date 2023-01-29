@@ -19,6 +19,45 @@ namespace Library_Business.Repository
             _mapper= mapper;
         }
 
+        public async Task<int> CreateBookISBN(BookISBNDto bookISBNDto)
+        {
+            var procedureName = "usp_AddBookISBN";
+            var parameters = new DynamicParameters();
+            parameters.Add("ISBN", bookISBNDto.ISBN, DbType.String, ParameterDirection.Input);
+            parameters.Add("@IsActive", 1, DbType.String, ParameterDirection.Input);
+            parameters.Add("@StatusId", bookISBNDto.BookStatusId, DbType.String, ParameterDirection.Input);
+            parameters.Add("@CreatedDateTime", DateTime.Now, DbType.DateTime2, ParameterDirection.Input);
+            parameters.Add("@UpdatedDateTime", DateTime.Now, DbType.DateTime2, ParameterDirection.Input);
+            parameters.Add("@BookMasterId", bookISBNDto.MasterBookId, DbType.Int64, ParameterDirection.Input);
+
+            using (var connection = _context.CreateConnection())
+            {
+                var result = await connection.ExecuteAsync
+                   (procedureName, parameters, commandType: CommandType.StoredProcedure);
+                return result;
+            }
+        }
+
+        public async Task<int> CreateMasterBook(BookMasterDto bookMasterDto)
+        {
+            var procedureName = "usp_AddBookmaster";
+            var parameters = new DynamicParameters();
+            parameters.Add("Title", bookMasterDto.Title, DbType.String, ParameterDirection.Input);
+            parameters.Add("Publisher", bookMasterDto.Publisher, DbType.String, ParameterDirection.Input);
+            parameters.Add("Author", bookMasterDto.Author, DbType.String, ParameterDirection.Input);
+            parameters.Add("TotalPages", bookMasterDto.TotalPages, DbType.Int64, ParameterDirection.Input);
+            parameters.Add("Description", bookMasterDto.Description, DbType.String, ParameterDirection.Input);
+            parameters.Add("ImagePath", bookMasterDto.ImageFolderPath, DbType.String, ParameterDirection.Input);
+            parameters.Add("BookTypeId", bookMasterDto.BookTypeId, DbType.Int64, ParameterDirection.Input);
+            parameters.Add("BookCategoryId", bookMasterDto.BookCategoryId, DbType.Int64, ParameterDirection.Input);
+            using (var connection = _context.CreateConnection())
+            {
+                var result = await connection.ExecuteAsync
+                   (procedureName,parameters, commandType: CommandType.StoredProcedure);
+                return result;
+            }
+        }
+
         public async Task<IEnumerable<BookDto>> GetAlBooks()
         {
             var procedureName = "usp_GetAllBooks";
@@ -28,6 +67,42 @@ namespace Library_Business.Repository
                 var result = await connection.QueryAsync<Book>
                     (procedureName, commandType: CommandType.StoredProcedure);
                 return _mapper.Map<IEnumerable<Book>, IEnumerable<BookDto>>(result);
+            }
+        }
+
+        public async Task<IEnumerable<BookCategoryDto>> GetBookCategories()
+        {
+            var procedureName = "usp_GetBookCategory";
+
+            using (var connection = _context.CreateConnection())
+            {
+                var result = await connection.QueryAsync<BookCategory>
+                    (procedureName, commandType: CommandType.StoredProcedure);
+                return _mapper.Map<IEnumerable<BookCategory>, IEnumerable<BookCategoryDto>>(result);
+            }
+        }
+
+        public async Task<IEnumerable<BookStatusDto>> GetBookStatus()
+        {
+            var procedureName = "usp_GetStatus";
+
+            using (var connection = _context.CreateConnection())
+            {
+                var result = await connection.QueryAsync<BookStatus>
+                    (procedureName, commandType: CommandType.StoredProcedure);
+                return _mapper.Map<IEnumerable<BookStatus>, IEnumerable<BookStatusDto>>(result);
+            }
+        }
+
+        public async Task<IEnumerable<BookTypeDto>> GetBookTypes()
+        {
+            var procedureName = "usp_GetBookTypes";
+
+            using (var connection = _context.CreateConnection())
+            {
+                var result = await connection.QueryAsync<BookType>
+                    (procedureName, commandType: CommandType.StoredProcedure);
+                return _mapper.Map<IEnumerable<BookType>, IEnumerable<BookTypeDto>>(result);
             }
         }
     }
