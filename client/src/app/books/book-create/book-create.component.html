@@ -1,90 +1,184 @@
-<br /><br />
-
-<div class="text-center mt-3">
-  <h2>Create Book</h2>
-</div>
+<br />
+<br />
 
 <div class="container">
-  <form>
-    <div class="form-group">
+  <h2>Create Book</h2>
+
+  <form [formGroup]="createBook" (ngSubmit)="onSubmit()" novalidate>
+    <div class="form-group col-5">
       <label for="exampleInputEmail1">Book Title</label>
       <input
-        type="title"
+        formControlName="title"
+        type="text"
         class="form-control"
-        id="exampleInputEmail1"
-        aria-describedby="emailHelp"
         placeholder="Enter Title"
       />
+      <div
+        *ngIf="
+          (registerFormControl['title'].touched &&
+            registerFormControl['title'].invalid) ||
+          submitted
+        "
+        class="text-danger"
+      >
+        <div *ngIf="registerFormControl['title'].errors?.['required']">
+          Book title is required.
+        </div>
+      </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-5">
       <label for="exampleInputEmail1">Publisher</label>
       <input
-        type="publisher"
+        formControlName="publisher"
+        type="text"
         class="form-control"
-        id="exampleInputEmail1"
-        aria-describedby="emailHelp"
         placeholder="Enter Publisher"
       />
+      <div
+        *ngIf="
+          (registerFormControl['publisher'].touched &&
+            registerFormControl['publisher'].invalid) ||
+          submitted
+        "
+        class="text-danger"
+      >
+        <div *ngIf="registerFormControl['publisher'].errors?.['required']">
+          Book publisher is required.
+        </div>
+      </div>
     </div>
-    <div class="form-group">
+    <div class="form-group col-5">
       <label for="exampleInputEmail1">Author</label>
       <input
-        type="email"
+        formControlName="author"
+        type="text"
         class="form-control"
-        id="exampleInputEmail1"
-        aria-describedby="emailHelp"
         placeholder="Enter Author"
       />
+      <div
+        *ngIf="
+          (registerFormControl['author'].touched &&
+            registerFormControl['author'].invalid) ||
+          submitted
+        "
+        class="text-danger"
+      >
+        <div *ngIf="registerFormControl['author'].errors?.['required']">
+          Book author is required.
+        </div>
+      </div>
     </div>
-    <div class="form-group">
+    <div class="form-group col-5">
       <label for="exampleInputEmail1">Total Pages</label>
       <input
-        type="email"
+        formControlName="pages"
+        type="text"
         class="form-control"
-        id="exampleInputEmail1"
         aria-describedby="emailHelp"
         placeholder="Enter Pages"
       />
+      <div
+        *ngIf="
+          (registerFormControl['pages'].touched &&
+            registerFormControl['pages'].invalid) ||
+          submitted
+        "
+        class="text-danger"
+      >
+        <div *ngIf="registerFormControl['pages'].errors?.['required']">
+          Book total pages are required.
+        </div>
+      </div>
     </div>
-    <div class="form-group">
+    <div class="form-group col-5">
       <label for="exampleInputEmail1">Description</label>
       <textarea
-        type="email"
+        formControlName="description"
+        type="text"
         class="form-control"
-        id="exampleInputEmail1"
         aria-describedby="emailHelp"
         placeholder="Enter Description"
       ></textarea>
+      <div
+        *ngIf="
+          (registerFormControl['description'].touched &&
+            registerFormControl['description'].invalid) ||
+          submitted
+        "
+        class="text-danger"
+      >
+        <div *ngIf="registerFormControl['description'].errors?.['required']">
+          Book description is required.
+        </div>
+      </div>
     </div>
-    <div class="form-group">
+    <div class="form-group col-5">
       <label for="exampleInputEmail1">Upload Image</label>
       <input
+        formControlName="bookimage"
         type="file"
         class="form-control"
-        id="exampleInputEmail1"
-        aria-describedby="emailHelp"
         placeholder="Enter email"
         accept="image/*"
       />
+      <div
+        *ngIf="
+          (registerFormControl['bookimage'].touched &&
+            registerFormControl['bookimage'].invalid) ||
+          submitted
+        "
+        class="text-danger"
+      >
+        <div *ngIf="registerFormControl['bookimage'].errors?.['required']">
+          Book image is required.
+        </div>
+      </div>
     </div>
-    <div class="form-group">
+    <div class="form-group col-5">
       <label for="exampleSelect1" class="form-label mt-4">Type</label>
-      <select class="form-select" id="exampleSelect1">
-        <option>Paperback</option>
-        <option>Hardcover</option>
+      <select class="form-select" formControlName="booktype">
+        <option disabled>Select Type</option>
+        <option *ngFor="let booktype of type" [value]="booktype.id">
+          {{ booktype.name }}
+        </option>
       </select>
+      <div
+        *ngIf="
+          (registerFormControl['booktype'].touched &&
+            registerFormControl['booktype'].invalid) ||
+          submitted
+        "
+        class="text-danger"
+      >
+        <div *ngIf="registerFormControl['booktype'].errors?.['required']">
+          Book type is required.
+        </div>
+      </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-5">
       <label for="exampleSelect1" class="form-label mt-4">Category</label>
-      <select class="form-select" id="exampleSelect1">
-        <option>Fiction</option>
-        <option>Non-Fiction</option>
-        <option>Programming</option>
-        <option>Motivational</option>
+      <select class="form-select" formControlName="bookcategory">
+        <option disabled>Select Category</option>
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </option>
       </select>
+      <div
+        *ngIf="
+          (registerFormControl['bookcategory'].touched &&
+            registerFormControl['bookcategory'].invalid) ||
+          submitted
+        "
+        class="text-danger"
+      >
+        <div *ngIf="registerFormControl['bookcategory'].errors?.['required']">
+          Book category is required.
+        </div>
+      </div>
     </div>
+    <br />
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>

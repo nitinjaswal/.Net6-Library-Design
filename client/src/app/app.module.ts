@@ -11,9 +11,10 @@ import { BookCardComponent } from './books/book-card/book-card.component';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
-import { BsDropdownModule} from 'ngx-bootstrap/dropdown';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BookCreateComponent } from './books/book-create/book-create.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,10 @@ import { BookCreateComponent } from './books/book-create/book-create.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,BsDropdownModule.forRoot()],
+    ReactiveFormsModule,
+    FormsModule,
+    BsDropdownModule.forRoot(),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
