@@ -48,8 +48,8 @@ namespace Library_Business.Repository
             parameters.Add("TotalPages", bookMasterDto.TotalPages, DbType.Int64, ParameterDirection.Input);
             parameters.Add("Description", bookMasterDto.Description, DbType.String, ParameterDirection.Input);
             parameters.Add("ImagePath", bookMasterDto.ImageFolderPath, DbType.String, ParameterDirection.Input);
-            parameters.Add("BookTypeId", bookMasterDto.BookTypeId, DbType.Int64, ParameterDirection.Input);
-            parameters.Add("BookCategoryId", bookMasterDto.BookCategoryId, DbType.Int64, ParameterDirection.Input);
+            parameters.Add("BookTypeId", bookMasterDto.BookType, DbType.Int64, ParameterDirection.Input);
+            parameters.Add("BookCategoryId", bookMasterDto.BookCategory, DbType.Int64, ParameterDirection.Input);
             using (var connection = _context.CreateConnection())
             {
                 var result = await connection.ExecuteAsync
@@ -103,6 +103,20 @@ namespace Library_Business.Repository
                 var result = await connection.QueryAsync<BookType>
                     (procedureName, commandType: CommandType.StoredProcedure);
                 return _mapper.Map<IEnumerable<BookType>, IEnumerable<BookTypeDto>>(result);
+            }
+        }
+
+        public async Task<bool> IfBookExist(string title, string author, string publisher)
+        {
+            var procedureName = "usp_IfBookExist";
+            var parameters = new DynamicParameters();
+            parameters.Add("Title", title, DbType.String, ParameterDirection.Input);
+            parameters.Add("Publisher", publisher, DbType.String, ParameterDirection.Input);
+            parameters.Add("Author", author, DbType.String, ParameterDirection.Input);
+            using (var connection = _context.CreateConnection())
+            {
+                var result =  connection.ExecuteScalar(procedureName,parameters, commandType: CommandType.StoredProcedure);
+                return Convert.ToBoolean(result);
             }
         }
     }

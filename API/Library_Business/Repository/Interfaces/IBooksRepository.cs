@@ -16,5 +16,6 @@ namespace Library_Business.Repository.Interfaces
         public Task<IEnumerable<BookCategoryDto>> GetBookCategories();
         public Task<IEnumerable<BookStatusDto>> GetBookStatus();
         public Task<IEnumerable<BookTypeDto>> GetBookTypes();
+        public Task<bool> IfBookExist(string title, string author, string publisher);
     }
 }

@@ -4,7 +4,7 @@
 <div class="container">
   <h2>Create Book</h2>
 
-  <form [formGroup]="createBook" (ngSubmit)="onSubmit()" novalidate>
+  <form [formGroup]="createBookForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="form-group col-5">
       <label for="exampleInputEmail1">Book Title</label>
       <input
@@ -16,8 +16,7 @@
       <div
         *ngIf="
           (registerFormControl['title'].touched &&
-            registerFormControl['title'].invalid) ||
-          submitted
+            registerFormControl['title'].invalid) 
         "
         class="text-danger"
       >
@@ -38,8 +37,7 @@
       <div
         *ngIf="
           (registerFormControl['publisher'].touched &&
-            registerFormControl['publisher'].invalid) ||
-          submitted
+            registerFormControl['publisher'].invalid)
         "
         class="text-danger"
       >
@@ -59,8 +57,7 @@
       <div
         *ngIf="
           (registerFormControl['author'].touched &&
-            registerFormControl['author'].invalid) ||
-          submitted
+            registerFormControl['author'].invalid)
         "
         class="text-danger"
       >
@@ -72,7 +69,7 @@
     <div class="form-group col-5">
       <label for="exampleInputEmail1">Total Pages</label>
       <input
-        formControlName="pages"
+        formControlName="totalpages"
         type="text"
         class="form-control"
         aria-describedby="emailHelp"
@@ -80,13 +77,12 @@
       />
       <div
         *ngIf="
-          (registerFormControl['pages'].touched &&
-            registerFormControl['pages'].invalid) ||
-          submitted
-        "
+          (registerFormControl['totalpages'].touched &&
+            registerFormControl['totalpages'].invalid)
+                    "
         class="text-danger"
       >
-        <div *ngIf="registerFormControl['pages'].errors?.['required']">
+        <div *ngIf="registerFormControl['totalpages'].errors?.['required']">
           Book total pages are required.
         </div>
       </div>
@@ -103,8 +99,7 @@
       <div
         *ngIf="
           (registerFormControl['description'].touched &&
-            registerFormControl['description'].invalid) ||
-          submitted
+            registerFormControl['description'].invalid)
         "
         class="text-danger"
       >
@@ -115,25 +110,7 @@
     </div>
     <div class="form-group col-5">
       <label for="exampleInputEmail1">Upload Image</label>
-      <input
-        formControlName="bookimage"
-        type="file"
-        class="form-control"
-        placeholder="Enter email"
-        accept="image/*"
-      />
-      <div
-        *ngIf="
-          (registerFormControl['bookimage'].touched &&
-            registerFormControl['bookimage'].invalid) ||
-          submitted
-        "
-        class="text-danger"
-      >
-        <div *ngIf="registerFormControl['bookimage'].errors?.['required']">
-          Book image is required.
-        </div>
-      </div>
+      <input type="file" class="form-control" />
     </div>
     <div class="form-group col-5">
       <label for="exampleSelect1" class="form-label mt-4">Type</label>
@@ -146,8 +123,7 @@
       <div
         *ngIf="
           (registerFormControl['booktype'].touched &&
-            registerFormControl['booktype'].invalid) ||
-          submitted
+            registerFormControl['booktype'].invalid)
         "
         class="text-danger"
       >
@@ -168,8 +144,7 @@
       <div
         *ngIf="
           (registerFormControl['bookcategory'].touched &&
-            registerFormControl['bookcategory'].invalid) ||
-          submitted
+            registerFormControl['bookcategory'].invalid)
         "
         class="text-danger"
       >
@@ -179,6 +154,12 @@
       </div>
     </div>
     <br />
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button
+      [disabled]="createBookForm.invalid"
+      type="submit"
+      class="btn btn-primary"
+    >
+      Submit
+    </button>
   </form>
 </div>

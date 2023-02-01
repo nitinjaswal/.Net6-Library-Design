@@ -15,7 +15,6 @@ export class AccountService {
   constructor(private httpClinet: HttpClient) {}
 
   login(model: any) {
-    debugger;
     return this.httpClinet.post<User>(this.baseUrl + 'users/login', model).pipe(
       map((response: User) => {
         const user = response;

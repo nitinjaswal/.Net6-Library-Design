@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,11 +21,21 @@ namespace Library_Business.Dtos
         public int TotalPages { get; set; }
         [Required]
         public string Description { get; set; }
+        public string? ImageFolderPath { get; set; }
         [Required]
-        public string ImageFolderPath { get; set; }
+        public int BookType { get; set; }
         [Required]
-        public int BookTypeId { get; set; }
-        [Required]
-        public int BookCategoryId { get; set; }
+        public int BookCategory { get; set; }
+    }
+
+    public class FileToUpload
+    {
+        public string FileName { get; set; }
+        public string FileSize { get; set; }
+        public string FileType { get; set; }
+        public long LastModifiedTime { get; set; }
+        public DateTime LastModifiedDate { get; set; }
+        public string FileAsBase64 { get; set; }
+        public byte[] FileAsByteArray { get; set; }
     }
 }

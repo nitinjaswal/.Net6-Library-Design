@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import {
   FormBuilder,
   FormControl,
@@ -10,6 +11,7 @@ import { Category } from 'src/app/_models/category';
 import { Status } from 'src/app/_models/status';
 import { Type } from 'src/app/_models/type';
 import { BooksService } from 'src/app/_services/books.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-book-create',
@@ -20,9 +22,14 @@ export class BookCreateComponent implements OnInit {
   categories: Category[] = [];
   type: Type[] = [];
   status: Status[] = [];
-  createBook!: FormGroup;
-  submitted = false;
-  constructor(private bookService: BooksService, private fb: FormBuilder) {}
+  createBookForm!: FormGroup;
+  selectedFile!: File;
+  isDirty = true;
+  constructor(
+    private bookService: BooksService,
+    private fb: FormBuilder,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -32,15 +39,14 @@ export class BookCreateComponent implements OnInit {
   }
 
   initializeForm() {
-    this.createBook = this.fb.group({
+    this.createBookForm = this.fb.group({
       title: ['', [Validators.required]],
       publisher: ['', [Validators.required]],
       author: ['', [Validators.required]],
-      pages: ['', [Validators.required]],
+      totalpages: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      bookimage:['',[Validators.required]],
-      booktype:['',[Validators.required]],
-      bookcategory:['',[Validators.required]]
+      booktype: ['', [Validators.required]],
+      bookcategory: ['', [Validators.required]],
     });
   }
 
@@ -62,12 +68,40 @@ export class BookCreateComponent implements OnInit {
     });
   }
 
+  // onFileChange(event: any) {
+  //   let reader = new FileReader(); // HTML5 FileReader API
+  //   let file = event.target.files[0];
+  //   if (event.target.files.length > 0) {
+  //     reader.readAsDataURL(file);
+
+  //     // When file uploads set it to file formcontrol
+  //     reader.onload = () => {
+  //       // this.imageUrl = reader.result;
+  //       this.createBookForm.patchValue({
+  //         file: reader.result,
+  //       });
+  //     };
+  //     this.selectedFile = event.target.files[0];
+  //     console.log(this.selectedFile.name);
+
+  //     // this.createBookForm.patchValue({
+  //     //   fileSource: file,
+  //     // });
+  //   }
+  // }
+
   onSubmit() {
-    this.submitted = true;
-    console.log(this.createBook.value);
+    this.bookService
+      .createBookMaster(this.createBookForm.value)
+      .subscribe((data) => {
+        console.log(data);
+
+        this.toastr.success('Master book created successfully');
+        this.createBookForm.reset();
+      });
   }
 
   protected get registerFormControl() {
-    return this.createBook.controls;
+    return this.createBookForm.controls;
   }
 }
