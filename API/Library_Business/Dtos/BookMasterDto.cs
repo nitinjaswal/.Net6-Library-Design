@@ -16,16 +16,18 @@ namespace Library_Business.Dtos
         [Required]
         public string? Publisher { get; set; }
         [Required]
-        public string Author { get; set; }
+        public string? Author { get; set; }
         [Required]
         public int TotalPages { get; set; }
         [Required]
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public string? ImageFolderPath { get; set; }
         [Required]
         public int BookType { get; set; }
         [Required]
         public int BookCategory { get; set; }
+        [Required]
+        public IFormFile BookImage { get; set; }
     }
 
     public class FileToUpload

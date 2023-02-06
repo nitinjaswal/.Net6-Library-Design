@@ -12,15 +12,10 @@
         <a class="nav-link" routerLinkActive="active" href="#">Return Book</a>
       </li>
       <li class="nav-item" *ngIf="loggedIn">
-        <a class="nav-link" routerLinkActive="active"
-          >Most Requested Books</a
-        >
+        <a class="nav-link" routerLinkActive="active">Most Requested Books</a>
       </li>
       <li class="nav-item" *ngIf="loggedIn">
-        <a
-          class="nav-link"
-          routerLinkActive="active"
-          routerLink="/createbook"
+        <a class="nav-link" routerLinkActive="active" routerLink="/createbook"
           >Create Book</a
         >
       </li>
@@ -51,6 +46,7 @@
         type="text"
         placeholder="Username"
       />
+      <span>&nbsp;</span>
       <input
         name="password"
         [(ngModel)]="model.password"
@@ -58,6 +54,7 @@
         type="password"
         placeholder="password"
       />
+      <span>&nbsp;</span>
       <button class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
     </form>
   </div>

@@ -7,8 +7,8 @@ namespace Library_Business.Dtos
         [Required]
         public string ISBN { get; set; }
         [Required]
-        public int BookStatusId { get; set; }
+        public int BookStatus { get; set; }
         [Required]
-        public int MasterBookId { get; set; }
+        public int MasterBook { get; set; }
     }
 }

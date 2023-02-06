@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  NonNullableFormBuilder,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Category } from 'src/app/_models/category';
 import { Status } from 'src/app/_models/status';
 import { Type } from 'src/app/_models/type';
 import { BooksService } from 'src/app/_services/books.service';
 import { ToastrService } from 'ngx-toastr';
+import { BookMasterList } from 'src/app/_models/bookmasterlist';
+import {
+  HttpDownloadProgressEvent,
+  HttpErrorResponse,
+} from '@angular/common/http';
 
 @Component({
   selector: 'app-book-create',
@@ -21,9 +20,13 @@ import { ToastrService } from 'ngx-toastr';
 export class BookCreateComponent implements OnInit {
   categories: Category[] = [];
   type: Type[] = [];
-  status: Status[] = [];
-  createBookForm!: FormGroup;
-  selectedFile!: File;
+  statuses: Status[] = [];
+  bookMasterList: BookMasterList[] = [];
+
+  createBookForm: FormGroup;
+  createISBNForm!: FormGroup;
+
+  selectedFile: File;
   isDirty = true;
   constructor(
     private bookService: BooksService,
@@ -36,6 +39,8 @@ export class BookCreateComponent implements OnInit {
     this.getBookCategories();
     this.getBookStatus();
     this.getBookTypes();
+    this.initializeISBNForm();
+    this.getMasterBooks();
   }
 
   initializeForm() {
@@ -47,6 +52,15 @@ export class BookCreateComponent implements OnInit {
       description: ['', [Validators.required]],
       booktype: ['', [Validators.required]],
       bookcategory: ['', [Validators.required]],
+      bookImage: ['', [Validators.required]],
+    });
+  }
+
+  initializeISBNForm() {
+    this.createISBNForm = this.fb.group({
+      masterbook: ['', [Validators.required]],
+      bookstatus: ['', [Validators.required]],
+      isbn: ['', [Validators.required]],
     });
   }
 
@@ -64,44 +78,64 @@ export class BookCreateComponent implements OnInit {
 
   getBookStatus() {
     this.bookService.getStatus().subscribe((status) => {
-      this.status = status;
+      this.statuses = status;
     });
   }
 
-  // onFileChange(event: any) {
-  //   let reader = new FileReader(); // HTML5 FileReader API
-  //   let file = event.target.files[0];
-  //   if (event.target.files.length > 0) {
-  //     reader.readAsDataURL(file);
+  getMasterBooks() {
+    this.bookService.getMasterBooks().subscribe((list) => {
+      this.bookMasterList = list;
+    });
+  }
 
-  //     // When file uploads set it to file formcontrol
-  //     reader.onload = () => {
-  //       // this.imageUrl = reader.result;
-  //       this.createBookForm.patchValue({
-  //         file: reader.result,
-  //       });
-  //     };
-  //     this.selectedFile = event.target.files[0];
-  //     console.log(this.selectedFile.name);
-
-  //     // this.createBookForm.patchValue({
-  //     //   fileSource: file,
-  //     // });
-  //   }
-  // }
+  chooseFile(files: FileList) {
+    // ...
+    this.selectedFile = files[0];
+  }
 
   onSubmit() {
-    this.bookService
-      .createBookMaster(this.createBookForm.value)
-      .subscribe((data) => {
-        console.log(data);
+    const formData = new FormData();
 
-        this.toastr.success('Master book created successfully');
+    formData.append('Title', this.createBookForm.controls['title'].value);
+    formData.append('Publisher', this.createBookForm.controls['publisher'].value);
+    formData.append('Author', this.createBookForm.controls['author'].value);
+    formData.append('TotalPages', this.createBookForm.controls['totalpages'].value);
+    formData.append('Description', this.createBookForm.controls['description'].value);
+    formData.append('BookType', this.createBookForm.controls['booktype'].value);
+    formData.append('BookCategory', this.createBookForm.controls['bookcategory'].value);
+    formData.append('BookImage', this.selectedFile);
+
+    console.log(formData);
+    this.bookService.createBookMaster(formData).subscribe({
+      next: (res) => {
+        this.toastr.success('Master book created successfully.');
         this.createBookForm.reset();
-      });
+      },
+      error: (error: HttpErrorResponse) => {
+        this.toastr.error('Master book already exist.');
+      },
+    });
+  }
+
+  onSubmitISBN() {
+    this.bookService.createBookISBN(this.createISBNForm.value).subscribe({
+      next: (res) => {
+        debugger;
+        console.log(res);
+        this.toastr.success('Book ISBN created successfully.');
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log(error);
+        this.toastr.error('ISBN already exists.');
+      },
+    });
   }
 
   protected get registerFormControl() {
     return this.createBookForm.controls;
+  }
+
+  protected get registerISBNFormControl() {
+    return this.createISBNForm.controls;
   }
 }

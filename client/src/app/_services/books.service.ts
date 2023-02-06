@@ -5,8 +5,10 @@ import { environment } from 'src/environments/environment';
 import { Category } from '../_models/category';
 import { Type } from '../_models/type';
 import { Status } from '../_models/status';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { BookMaster } from '../_models/bookmaster';
+import { BookMasterList } from '../_models/bookmasterlist';
+import { BookISBN } from '../_models/bookisbn';
 
 @Injectable({
   providedIn: 'root',
@@ -37,32 +39,27 @@ export class BooksService {
     return this.httpClient.get<Status[]>(this.baseUrl + 'books/status');
   }
 
-  createBookMaster(model: any) {    
+  getMasterBooks() {
+    return this.httpClient.get<BookMasterList[]>(
+      this.baseUrl + 'books/getmasterbooks'
+    );
+  }
+
+  createBookMaster(model: any) {
     debugger;
     const options = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
     return this.httpClient
-      .post(this.baseUrl + 'Books/createBook', model)
-      .pipe(catchError(this.handleError<BookMaster>('saveBookMaster')));
+      .post(this.baseUrl + 'Books/createBook', model);
+
   }
 
-  uploadImageLocally(formData: FormData) {
-    const req = new HttpRequest(
-      'POST',
-      `http://localhost:4200/assets/images/`,
-      formData,
-      {
-        reportProgress: true,
-        responseType: 'json',
-      }
-    );
+  createBookISBN(model: any): Observable<any> {
+    debugger;
 
-    console.log('FormData:' + formData);
-    // this.httpClient.post('http://localhost:4200/src/assets/images/', formData)
-    // .subscribe(res => {
-    //   console.log(res);
-    // });
+    return this.httpClient
+      .post(this.baseUrl + 'Books/createBookISBN', model);
   }
 }
