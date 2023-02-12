@@ -12,16 +12,16 @@ export class AppComponent implements OnInit {
 
   constructor(private acountService: AccountService) {}
   ngOnInit(): void {
-     //this.setCurrentUser();
+    this.setCurrentUser();
   }
 
-  // setCurrentUser() {
-  //   debugger;
-  //   const userString = JSON.parse(localStorage.getItem('user')!);
+  setCurrentUser() {
+    debugger;
+    const userString = JSON.parse(localStorage.getItem('user')!);
 
-  //   if (!userString) return;
+    if (!userString) return;
 
-  //   const user: User = JSON.parse(userString);
-  //   this.acountService.setCurrentUser(user);
-  // }
+    const user: User = JSON.parse(userString);
+    this.acountService.setCurrentUser(user);
+  }
 }

@@ -1,13 +1,15 @@
 <div class="col">
   <div class="card mb-4">
-    <div class="card-img-wrapper">
+    <div class="card-img-wrapper item">
       <a routerLink="/books/{{ book.id }}">
-        <img src="assets/images/{{ book.imagePath }}" class="card-img-top" />
+        <img
+          src="{{ baseUrl + book.imagePath }}"
+          class="card-img-top img-thumbnail"
+        />
       </a>
-
-      <div>Book Name: {{ book.title }}</div>
-      <div>Book Type: {{ book.bookType }}</div>
-      <div>Status: {{ book.status }}</div>
     </div>
+    <div>Book Name: {{ book.title }}</div>
+    <!-- <div>Book Type: {{ book.bookType }}</div> -->
+    <div>Status: {{ book.status }}</div>
   </div>
 </div>

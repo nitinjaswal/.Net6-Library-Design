@@ -67,7 +67,8 @@ namespace LibraryManagement.Controllers
             return new UserDto
             {
                 Email = user.Email,
-                Name= user.Name
+                Name= user.Name,
+                Role = user.Role
             };         
         }
     }

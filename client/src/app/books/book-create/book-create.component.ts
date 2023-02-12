@@ -97,12 +97,24 @@ export class BookCreateComponent implements OnInit {
     const formData = new FormData();
 
     formData.append('Title', this.createBookForm.controls['title'].value);
-    formData.append('Publisher', this.createBookForm.controls['publisher'].value);
+    formData.append(
+      'Publisher',
+      this.createBookForm.controls['publisher'].value
+    );
     formData.append('Author', this.createBookForm.controls['author'].value);
-    formData.append('TotalPages', this.createBookForm.controls['totalpages'].value);
-    formData.append('Description', this.createBookForm.controls['description'].value);
+    formData.append(
+      'TotalPages',
+      this.createBookForm.controls['totalpages'].value
+    );
+    formData.append(
+      'Description',
+      this.createBookForm.controls['description'].value
+    );
     formData.append('BookType', this.createBookForm.controls['booktype'].value);
-    formData.append('BookCategory', this.createBookForm.controls['bookcategory'].value);
+    formData.append(
+      'BookCategory',
+      this.createBookForm.controls['bookcategory'].value
+    );
     formData.append('BookImage', this.selectedFile);
 
     console.log(formData);
@@ -110,6 +122,7 @@ export class BookCreateComponent implements OnInit {
       next: (res) => {
         this.toastr.success('Master book created successfully.');
         this.createBookForm.reset();
+        this.getMasterBooks();
       },
       error: (error: HttpErrorResponse) => {
         this.toastr.error('Master book already exist.');
@@ -120,9 +133,10 @@ export class BookCreateComponent implements OnInit {
   onSubmitISBN() {
     this.bookService.createBookISBN(this.createISBNForm.value).subscribe({
       next: (res) => {
-        debugger;
         console.log(res);
         this.toastr.success('Book ISBN created successfully.');
+        this.createISBNForm.reset();
+
       },
       error: (error: HttpErrorResponse) => {
         console.log(error);

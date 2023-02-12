@@ -1,6 +1,7 @@
 using Library_Business.Repository;
 using Library_Business.Repository.Interfaces;
 using Library_Data;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+                Path.Combine(Directory.GetCurrentDirectory(), "ImagePath")),
+    RequestPath = "/ImagePath"
+});
 
 app.UseHttpsRedirection();
 

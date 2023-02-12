@@ -4,17 +4,21 @@ import { AppComponent } from './app.component';
 import { BookCreateComponent } from './books/book-create/book-create.component';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
 import { BooksListComponent } from './books/books-list/books-list.component';
+import { AdminGuard } from './_guards/admin.guard';
+import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: AppComponent },
+  { path: '', component: BooksListComponent },
+  { path: 'books', component: BooksListComponent },
   {
     path: '',
+    canActivate:[AuthGuard],
     children: [
-      { path: 'books', component: BooksListComponent },
       { path: 'books/:id', component: BookDetailComponent },
+      { path: 'createbook', component: BookCreateComponent, canActivate: [AdminGuard]},
     ],
   },
-  { path: 'createbook', component: BookCreateComponent },
+  
 ];
 
 @NgModule({

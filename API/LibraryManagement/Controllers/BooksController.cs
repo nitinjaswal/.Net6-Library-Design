@@ -42,22 +42,22 @@ namespace LibraryManagement.Controllers
         }
 
         [HttpPost("createBook")]
-        public async Task<ActionResult> CreateMasterBook([FromForm]BookMasterDto bookMasterDto)
+        public async Task<ActionResult> CreateMasterBook([FromForm] BookMasterDto bookMasterDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if(bookMasterDto.BookImage == null || bookMasterDto.BookImage.Length < 1)
+            if (bookMasterDto.BookImage == null || bookMasterDto.BookImage.Length < 1)
             {
                 return BadRequest("The upload file is emppty.");
             }
 
             var ifBookExist = await _booksRepository.IfBookExist(bookMasterDto.Title, bookMasterDto.Author, bookMasterDto.Publisher);
             if (ifBookExist)
-             return BadRequest("Book already exist");
+                return BadRequest("Book already exist");
 
             // Save FormFile
-            var filePath = Path.Combine(@"ImagePath",bookMasterDto.BookImage.FileName);
+            var filePath = Path.Combine(@"ImagePath" + '/', bookMasterDto.BookImage.FileName);
             new FileInfo(filePath).Directory?.Create();
             await using (var stream = new FileStream(filePath, FileMode.Create))
             {
@@ -85,7 +85,7 @@ namespace LibraryManagement.Controllers
             return Ok(await _booksRepository.GetMasterBook());
         }
 
-        private  string UploadImage(string image)
+        private string UploadImage(string image)
         {
             return "";
         }
