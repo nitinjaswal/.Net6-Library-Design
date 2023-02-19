@@ -82,6 +82,19 @@ namespace Library_Business.Repository
             }
         }
 
+        public async Task<BookDto> GetBookDetail(int masterBookId)
+        {
+            var procedureName = "usp_GetBookDetail";
+            var paramter = new DynamicParameters();
+            paramter.Add("masterBookId", masterBookId, DbType.Int64, ParameterDirection.Input);
+            using (var connection = _context.CreateConnection())
+            {
+                var result = await connection.QueryFirstOrDefaultAsync<Book>
+                    (procedureName,paramter, commandType: CommandType.StoredProcedure);
+                return _mapper.Map<Book, BookDto>(result);
+            }
+        }
+
         public async Task<IEnumerable<BookStatusDto>> GetBookStatus()
         {
             var procedureName = "usp_GetStatus";

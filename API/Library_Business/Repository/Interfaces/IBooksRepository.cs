@@ -1,10 +1,5 @@
 ﻿using Library_Business.Dtos;
-using Library_Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Library_Business.Repository.Interfaces
 {
@@ -18,5 +13,6 @@ namespace Library_Business.Repository.Interfaces
         public Task<IEnumerable<BookTypeDto>> GetBookTypes();
         public Task<bool> IfBookExist(string title, string author, string publisher);
         public Task<IEnumerable<MasterBookListDto>> GetMasterBook();
+        public Task<BookDto> GetBookDetail(int masterBookId);
     }
 }

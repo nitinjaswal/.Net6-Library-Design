@@ -8,21 +8,30 @@ import { AdminGuard } from './_guards/admin.guard';
 import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: BooksListComponent },
-  { path: 'books', component: BooksListComponent },
-  {
-    path: '',
-    canActivate:[AuthGuard],
-    children: [
-      { path: 'books/:id', component: BookDetailComponent },
-      { path: 'createbook', component: BookCreateComponent, canActivate: [AdminGuard]},
-    ],
-  },
-  
+  { path: '', component: BooksListComponent, pathMatch: 'full' },
+  { path: 'books', component: BooksListComponent, pathMatch: 'full' },
+   { path: 'books/:id', component:BookDetailComponent},
+  { path: 'createbook', component:BookCreateComponent, canActivate: [AuthGuard,AdminGuard]}
+  // {
+  //   path: '',
+  //   canActivate: [AuthGuard],
+  //   children: [
+  //     { path: 'books/:id', component: BookDetailComponent },
+  //     {
+  //       path: 'createbook',
+  //       component: BookCreateComponent,
+  //       canActivate: [AdminGuard],
+  //     },
+  //   ],
+  // },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      onSameUrlNavigation: 'reload',
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

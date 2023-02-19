@@ -13,7 +13,7 @@ export class AccountService {
   private currentUserSource = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private httpClinet: HttpClient, private router:Router) {}
+  constructor(private httpClinet: HttpClient, private router: Router) {}
 
   login(model: any) {
     return this.httpClinet.post<User>(this.baseUrl + 'users/login', model).pipe(
@@ -21,14 +21,14 @@ export class AccountService {
         const user = response;
         if (user) {
           debugger;
-          localStorage.setItem('user', JSON.stringify(user));
-          this.currentUserSource.next(user);
+         this.setCurrentUser(user);
         }
       })
     );
   }
 
   setCurrentUser(user: User) {
+    localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
 

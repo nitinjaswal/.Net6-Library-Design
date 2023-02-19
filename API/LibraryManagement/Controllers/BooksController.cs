@@ -1,11 +1,6 @@
 ﻿using Library_Business.Dtos;
 using Library_Business.Repository.Interfaces;
-using Library_Data.Entities;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http.Headers;
 
 namespace LibraryManagement.Controllers
 {
@@ -85,9 +80,10 @@ namespace LibraryManagement.Controllers
             return Ok(await _booksRepository.GetMasterBook());
         }
 
-        private string UploadImage(string image)
+        [HttpGet("bookdetail")]
+        public async Task<ActionResult> GetBookDetail(int bookMasterId)
         {
-            return "";
+            return Ok(await _booksRepository.GetBookDetail(bookMasterId));
         }
     }
 }

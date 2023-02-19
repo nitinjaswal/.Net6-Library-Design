@@ -45,21 +45,25 @@ export class BooksService {
     );
   }
 
+  getBooKDetail(bookId: number) {
+    alert( this.baseUrl + 'books/bookdetail?bookMasterId=' + bookId);
+    return this.httpClient.get<Book>(
+      this.baseUrl + 'books/bookdetail?bookMasterId=' + bookId
+    );
+  }
+
   createBookMaster(model: any) {
     debugger;
     const options = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
-    return this.httpClient
-      .post(this.baseUrl + 'Books/createBook', model);
-
+    return this.httpClient.post(this.baseUrl + 'Books/createBook', model);
   }
 
   createBookISBN(model: any): Observable<any> {
     debugger;
 
-    return this.httpClient
-      .post(this.baseUrl + 'Books/createBookISBN', model);
+    return this.httpClient.post(this.baseUrl + 'Books/createBookISBN', model);
   }
 }

@@ -2,6 +2,7 @@
   <div class="card mb-4">
     <div class="card-img-wrapper item">
       <a routerLink="/books/{{ book.id }}">
+      <!-- <a routerLink="/books/" [queryParams]="{ bookId: book.id }"> -->
         <img
           src="{{ baseUrl + book.imagePath }}"
           class="card-img-top img-thumbnail"
