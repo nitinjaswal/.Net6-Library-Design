@@ -10,8 +10,16 @@ import { AuthGuard } from './_guards/auth.guard';
 const routes: Routes = [
   { path: '', component: BooksListComponent, pathMatch: 'full' },
   { path: 'books', component: BooksListComponent, pathMatch: 'full' },
-   { path: 'books/:id', component:BookDetailComponent},
-  { path: 'createbook', component:BookCreateComponent, canActivate: [AuthGuard,AdminGuard]}
+  {
+    path: 'books/:id',
+    component: BookDetailComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'createbook',
+    component: BookCreateComponent,
+    canActivate: [AuthGuard, AdminGuard],
+  },
   // {
   //   path: '',
   //   canActivate: [AuthGuard],

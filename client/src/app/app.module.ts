@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BookCreateComponent } from './books/book-create/book-create.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { FilterPipe } from './_pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ToastrModule } from 'ngx-toastr';
     BookDetailComponent,
     RegisterComponent,
     BookCreateComponent,
+    FilterPipe
   ],
   imports: [
     BrowserAnimationsModule,
@@ -34,6 +36,7 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    Ng2SearchPipeModule,
     ToastrModule.forRoot(), 
     BsDropdownModule.forRoot(),
   ],

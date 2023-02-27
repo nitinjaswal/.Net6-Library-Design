@@ -15,5 +15,6 @@ namespace Library_Business.Dtos
         public string Category { get; set; }
         public string Status { get; set; }
         public string ImagePath { get; set; }
+        public string ISBN { get; set; }
     }
 }

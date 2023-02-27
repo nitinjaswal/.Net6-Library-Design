@@ -9,6 +9,7 @@ import { BooksService } from '../../_services/books.service';
 })
 export class BooksListComponent implements OnInit {
   books: Book[] = [];
+  searchText: '';
 
   constructor(private bookService: BooksService) {}
 

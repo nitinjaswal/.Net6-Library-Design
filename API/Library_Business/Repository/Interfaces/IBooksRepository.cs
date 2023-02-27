@@ -14,5 +14,7 @@ namespace Library_Business.Repository.Interfaces
         public Task<bool> IfBookExist(string title, string author, string publisher);
         public Task<IEnumerable<MasterBookListDto>> GetMasterBook();
         public Task<BookDto> GetBookDetail(int masterBookId);
+
+        public Task RequestBook(BookRequestDto bookRequestDto);
     }
 }

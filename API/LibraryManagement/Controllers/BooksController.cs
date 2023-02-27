@@ -85,5 +85,11 @@ namespace LibraryManagement.Controllers
         {
             return Ok(await _booksRepository.GetBookDetail(bookMasterId));
         }
+
+        [HttpPost("requestbook")]
+        public async Task<ActionResult> RequestBook([FromBody]BookRequestDto bookRequestDto)
+        {
+            return Ok(_booksRepository.RequestBook(bookRequestDto));
+        }
     }
 }

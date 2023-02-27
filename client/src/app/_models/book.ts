@@ -1,6 +1,6 @@
 export class Book {
-  id:number;
-  count: number;
+  id: number;
+  bookCount: number;
   title: string;
   publisher: string;
   authorName: string;
@@ -10,10 +10,11 @@ export class Book {
   bookType: string;
   category: string;
   status: string;
+  isbn: string;
 
   constructor() {
-    this.id=0;
-    this.count = 0;
+    this.id = 0;
+    this.bookCount = 0;
     this.title = '';
     this.publisher = '';
     this.authorName = '';
@@ -23,5 +24,6 @@ export class Book {
     this.bookType = '';
     this.category = '';
     this.status = '';
+    this.isbn = '';
   }
 }

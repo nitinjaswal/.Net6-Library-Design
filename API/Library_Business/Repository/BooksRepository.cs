@@ -143,5 +143,21 @@ namespace Library_Business.Repository
                 return Convert.ToBoolean(result);
             }
         }
+
+        public async Task RequestBook(BookRequestDto bookRequestDto)
+        {
+            var procedureName = "usp_RequestBook";
+            var parameters = new DynamicParameters();
+            parameters.Add("ISBN", bookRequestDto.ISBN, DbType.String, ParameterDirection.Input);
+            parameters.Add("UserId", bookRequestDto.UserId, DbType.Int64, ParameterDirection.Input);
+            parameters.Add("RequestStatus", bookRequestDto.RequestStatus, DbType.String, ParameterDirection.Input);
+            parameters.Add("IsOnlineRequest", 1, DbType.Boolean, ParameterDirection.Input);
+            parameters.Add("CreatedDateTime", DateTime.Now, DbType.DateTime2, ParameterDirection.Input);
+
+            using (var connection = _context.CreateConnection())
+            {
+                var result = await connection.ExecuteAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
+            }
+        }
     }
 }

@@ -1,7 +1,34 @@
-<p>book-detail works!</p>
-<p>book-detail works!</p>
-<p>book-detail works!</p>
-<p>book-detail works!</p>
-<p>book-detail works!</p>
-<p>book-detail works!</p>
-<p>book-detail works!</p>
+<div class="container">
+  <img
+    [src]="baseUrl + book.imagePath"
+    [alt]="book?.title"
+    class="event-image"
+  />
+
+  <div class="row">
+    <div class="col-md-11">
+      <h2>{{ book?.title | uppercase }}</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div><strong>Title:</strong> {{ book?.title }}</div>
+      <div><strong>Publisher:</strong> {{ book?.publisher }}</div>
+      <div><strong>Author:</strong> {{ book?.authorName }}</div>
+      <div><strong>Total Pages:</strong> {{ book?.totalPages }}</div>
+      <div><strong>Description:</strong> {{ book?.description }}</div>
+      <div><strong>Type:</strong> {{ book?.bookType }}</div>
+      <div><strong>Category:</strong> {{ book?.category }}</div>
+      <div><strong>Status:</strong> {{ book?.status }}</div>
+      <div><strong>Count:</strong> {{ book?.bookCount }}</div>
+    </div>
+    <button
+    (click)="requestBook()"
+      class="btn btn-primary"
+      fdprocessedid="0hur3k"
+    >
+      Request Book
+    </button>
+  </div>
+</div>

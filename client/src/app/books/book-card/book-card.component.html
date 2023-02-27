@@ -5,12 +5,11 @@
       <!-- <a routerLink="/books/" [queryParams]="{ bookId: book.id }"> -->
         <img
           src="{{ baseUrl + book.imagePath }}"
-          class="card-img-top img-thumbnail"
+          class="img-fluid"
         />
       </a>
     </div>
     <div>Book Name: {{ book.title }}</div>
-    <!-- <div>Book Type: {{ book.bookType }}</div> -->
     <div>Status: {{ book.status }}</div>
   </div>
 </div>
