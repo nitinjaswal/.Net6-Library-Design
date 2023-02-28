@@ -1,1 +1,134 @@
-<p>register works!</p>
+<div class="container">
+  <form
+    [formGroup]="registerForm"
+    (ngSubmit)="register()"
+    autocomplete="off"
+    novalidate
+  >
+    <h2 class="text-center text-primary">Sign up</h2>
+    <hr />
+    <fieldset>
+      <div class="form-group col-8">
+        <label class="form-label mt-4">Name</label>
+        <input
+          formControlName="name"
+          type="text"
+          class="form-control"
+          placeholder="Enter Name"
+        />
+        <span
+          *ngIf="
+            registerFormControl['name'].touched &&
+            registerFormControl['name'].invalid
+          "
+          class="text-danger"
+        >
+          <div *ngIf="registerFormControl['name'].errors?.['required']">
+            Name is required.
+          </div>
+        </span>
+      </div>
+
+      <div class="form-group col-8">
+        <label class="form-label mt-4">Email</label>
+        <input
+          formControlName="email"
+          type="text"
+          class="form-control"
+          placeholder="Enter Email"
+        />
+        <span
+          *ngIf="
+            registerFormControl['email'].touched &&
+            registerFormControl['email'].invalid
+          "
+          class="text-danger"
+        >
+          <span *ngIf="registerFormControl['email'].errors?.['required']">
+            Email is required.
+          </span>
+        </span>
+      </div>
+      <div class="form-group col-8">
+        <label class="form-label mt-4">Phone</label>
+        <input
+          formControlName="phone"
+          type="number"
+          class="form-control"
+          placeholder="Enter Phone"
+        />
+        <span
+          *ngIf="
+            registerFormControl['phone'].touched &&
+            registerFormControl['phone'].invalid
+          "
+          class="text-danger"
+        >
+          <span *ngIf="registerFormControl['phone'].errors?.['required']">
+            Phone is required.
+          </span>
+        </span>
+      </div>
+      <div class="form-group col-8">
+        <label class="form-label mt-4">Password</label>
+        <input
+          formControlName="password"
+          type="text"
+          class="form-control"
+          placeholder="Enter Password"
+        />
+        <span
+          *ngIf="
+            registerFormControl['password'].touched &&
+            registerFormControl['password'].invalid
+          "
+          class="text-danger"
+        >
+          <span *ngIf="registerFormControl['password'].errors?.['required']">
+            Password is required.
+          </span>
+        </span>
+      </div>
+      <div class="form-group col-8">
+        <label class="form-label mt-4">Confirm Password</label>
+        <input
+          formControlName="confirmPassword"
+          type="text"
+          class="form-control"
+          placeholder="Enter Confirm Password"
+        />
+        <span
+          *ngIf="
+            registerFormControl['confirmPassword'].touched &&
+            registerFormControl['confirmPassword'].invalid
+          "
+          class="text-danger"
+        >
+          <span
+            *ngIf="registerFormControl['confirmPassword'].errors?.['required']"
+          >
+            Confirm Password is required.
+          </span>
+          <span
+            *ngIf="registerFormControl['confirmPassword'].errors?.['isMatching']"
+          >
+            Password and Confirm Password should be same.
+          </span>
+        </span>
+      </div>
+
+      <br />
+      <button
+        [disabled]="registerForm.invalid"
+        type="submit"
+        class="btn btn-primary"
+      >
+        Submit
+      </button>
+      <span>&nbsp;</span>
+      <button type="button" class="btn btn-secondary" fdprocessedid="0hur3k">
+        Cancel
+      </button>
+    </fieldset>
+  </form>
+</div>

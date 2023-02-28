@@ -1,6 +1,6 @@
 <div class="container">
   <img
-    [src]="baseUrl + book.imagePath"
+    [src]="baseUrl + book?.imagePath"
     [alt]="book?.title"
     class="event-image"
   />
@@ -24,7 +24,7 @@
       <div><strong>Count:</strong> {{ book?.bookCount }}</div>
     </div>
     <button
-    (click)="requestBook()"
+      (click)="requestBook()"
       class="btn btn-primary"
       fdprocessedid="0hur3k"
     >

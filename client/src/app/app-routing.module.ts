@@ -4,11 +4,12 @@ import { AppComponent } from './app.component';
 import { BookCreateComponent } from './books/book-create/book-create.component';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
 import { BooksListComponent } from './books/books-list/books-list.component';
+import { HomeComponent } from './home/home.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: BooksListComponent, pathMatch: 'full' },
+  { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'books', component: BooksListComponent, pathMatch: 'full' },
   {
     path: 'books/:id',
