@@ -15,7 +15,7 @@ namespace LibraryManagement.Controllers
         private readonly IUserRepository _userRepository;
         public UsersController(IUserRepository userRepository)
         {
-            _userRepository= userRepository;
+            _userRepository = userRepository;
         }
 
         //[HttpPost("register")]
@@ -67,9 +67,21 @@ namespace LibraryManagement.Controllers
             return new UserDto
             {
                 Email = user.Email,
-                Name= user.Name,
+                Name = user.Name,
                 Role = user.Role
-            };         
+            };
+        }
+
+        [HttpPost("register")]
+        public async Task<ActionResult> RegisterUser(CreateUserDto createUserDto)
+        {
+            var userObj = await _userRepository.GetUserByEmail(createUserDto.Email);
+            if (userObj != null && userObj.Email == createUserDto.Email)
+            {
+                return BadRequest("Email already exist.");
+            }
+
+            return Ok(_userRepository.CreateUser(createUserDto));
         }
     }
 }
