@@ -11,6 +11,6 @@ namespace Library_Business.Repository.Interfaces
     {
         public Task<IEnumerable<UserDto>> GetUsers();
         public Task<UserDto> GetUserByEmail(string email);
-        public Task CreateUser(CreateUserDto createUserDto);
+        public Task<int> CreateUser(CreateUserDto createUserDto);
     }
 }

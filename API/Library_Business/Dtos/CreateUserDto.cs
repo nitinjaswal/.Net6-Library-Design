@@ -16,9 +16,6 @@ namespace Library_Business.Dtos
         [Required]
         public string Password { get; set; }
         [Required]
-        public string Phone { get; set; }
-        public bool IsActive { get; set; }
-        public string Role { get; set; }
-        public string CreatedDateTime { get; set; }
+        public int Phone { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Output } from '@angular/core';
 import {
   AbstractControl,
@@ -36,8 +37,11 @@ export class RegisterComponent {
   initializeForm() {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['', Validators.required],
-      phone: ['', Validators.required],
+      email: [
+        '',
+        Validators.required
+       
+      ],
       password: ['', [Validators.required]],
       confirmPassword: [
         '',
@@ -60,13 +64,15 @@ export class RegisterComponent {
 
   register() {
     console.log(this.registerForm.value);
-    // this.accountService.register(this.registerForm.value).subscribe(response => {
-    //   this.router.navigateByUrl('/members');
-    //   this.cancel();
-    // }, error => {
-    //   this.validationErrors = error;
-    //   console.log(error);
-    // })
+    this.accountService.register(this.registerForm.value).subscribe({
+      next: (res) => {
+        debugger;
+        this.router.navigateByUrl('/books');
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log(error);
+      },
+    });
   }
 
   cancel() {

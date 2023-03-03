@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
 
@@ -20,7 +20,7 @@ export class AccountService {
       map((response: User) => {
         const user = response;
         if (user) {
-         this.setCurrentUser(user);
+          this.setCurrentUser(user);
         }
       })
     );
@@ -29,6 +29,17 @@ export class AccountService {
   setCurrentUser(user: User) {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
+  }
+
+  register(model: any): Observable<any> {
+    return this.httpClinet.post(this.baseUrl + 'users/register', model).pipe(
+      map((user: User) => {
+        if (user) {
+          debugger;
+          this.setCurrentUser(user);
+        }
+      })
+    );
   }
 
   logout() {

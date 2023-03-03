@@ -80,8 +80,8 @@ namespace LibraryManagement.Controllers
             {
                 return BadRequest("Email already exist.");
             }
-
-            return Ok(_userRepository.CreateUser(createUserDto));
+            var result = await _userRepository.CreateUser(createUserDto);
+            return Ok(result);
         }
     }
 }

@@ -40,22 +40,30 @@ namespace Library_Business.Repository
 
         public async Task<int> CreateMasterBook(BookMasterDto bookMasterDto)
         {
-            var procedureName = "usp_AddBookmaster";
-            var parameters = new DynamicParameters();
-            parameters.Add("Title", bookMasterDto.Title, DbType.String, ParameterDirection.Input);
-            parameters.Add("Publisher", bookMasterDto.Publisher, DbType.String, ParameterDirection.Input);
-            parameters.Add("Author", bookMasterDto.Author, DbType.String, ParameterDirection.Input);
-            parameters.Add("TotalPages", bookMasterDto.TotalPages, DbType.Int64, ParameterDirection.Input);
-            parameters.Add("Description", bookMasterDto.Description, DbType.String, ParameterDirection.Input);
-            parameters.Add("ImagePath", @"ImagePath/" + bookMasterDto.BookImage.FileName, DbType.String, ParameterDirection.Input);
-            parameters.Add("BookTypeId", bookMasterDto.BookType, DbType.Int64, ParameterDirection.Input);
-            parameters.Add("BookCategoryId", bookMasterDto.BookCategory, DbType.Int64, ParameterDirection.Input);
-            using (var connection = _context.CreateConnection())
+            try
             {
-                var result = await connection.ExecuteAsync
-                   (procedureName, parameters, commandType: CommandType.StoredProcedure);
-                return result;
+                var procedureName = "usp_AddBookmaster";
+                var parameters = new DynamicParameters();
+                parameters.Add("Title", bookMasterDto.Title, DbType.String, ParameterDirection.Input);
+                parameters.Add("Publisher", bookMasterDto.Publisher, DbType.String, ParameterDirection.Input);
+                parameters.Add("Author", bookMasterDto.Author, DbType.String, ParameterDirection.Input);
+                parameters.Add("TotalPages", bookMasterDto.TotalPages, DbType.Int64, ParameterDirection.Input);
+                parameters.Add("Description", bookMasterDto.Description, DbType.String, ParameterDirection.Input);
+                parameters.Add("ImagePath", @"ImagePath/" + bookMasterDto.BookImage.FileName, DbType.String, ParameterDirection.Input);
+                parameters.Add("BookTypeId", bookMasterDto.BookType, DbType.Int64, ParameterDirection.Input);
+                parameters.Add("BookCategoryId", bookMasterDto.BookCategory, DbType.Int64, ParameterDirection.Input);
+                using (var connection = _context.CreateConnection())
+                {
+                    var result = await connection.ExecuteAsync
+                       (procedureName, parameters, commandType: CommandType.StoredProcedure);
+                    return result;
+                }
             }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+  
         }
 
         public async Task<IEnumerable<BookDto>> GetAlBooks()

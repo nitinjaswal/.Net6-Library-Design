@@ -31,43 +31,11 @@
 
       <div class="form-group col-8">
         <label class="form-label mt-4">Email</label>
-        <input
-          formControlName="email"
-          type="text"
-          class="form-control"
-          placeholder="Enter Email"
-        />
-        <span
-          *ngIf="
-            registerFormControl['email'].touched &&
-            registerFormControl['email'].invalid
-          "
-          class="text-danger"
-        >
-          <span *ngIf="registerFormControl['email'].errors?.['required']">
-            Email is required.
-          </span>
-        </span>
-      </div>
-      <div class="form-group col-8">
-        <label class="form-label mt-4">Phone</label>
-        <input
-          formControlName="phone"
-          type="number"
-          class="form-control"
-          placeholder="Enter Phone"
-        />
-        <span
-          *ngIf="
-            registerFormControl['phone'].touched &&
-            registerFormControl['phone'].invalid
-          "
-          class="text-danger"
-        >
-          <span *ngIf="registerFormControl['phone'].errors?.['required']">
-            Phone is required.
-          </span>
-        </span>
+        <input type="email"  [class.is-invalid] = "registerForm.get('email').invalid && registerForm.get('email').touched"  class="form-control" formControlName="email"  />
+        <div *ngIf="(registerForm.get('email').invalid && registerForm.get('email').touched) || registerForm.get('email').dirty">
+            <small class="text-danger" *ngIf="registerForm.get('email').errors?.['required']">Email address is required</small>
+            <small class="text-danger" *ngIf="registerForm.get('email').errors?.['pattern']">Email address is invalid</small>
+          </div>
       </div>
       <div class="form-group col-8">
         <label class="form-label mt-4">Password</label>
