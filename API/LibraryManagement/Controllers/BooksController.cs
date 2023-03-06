@@ -91,5 +91,11 @@ namespace LibraryManagement.Controllers
         {
             return Ok(_booksRepository.RequestBook(bookRequestDto));
         }
+
+        [HttpPost("issuebook")]
+        public async Task<ActionResult> IssueBook(IssueBookDto issueBookDto)
+        {
+            return Ok(_booksRepository.IssueBook(issueBookDto));
+        }
     }
 }

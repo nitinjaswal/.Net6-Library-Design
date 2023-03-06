@@ -16,5 +16,7 @@ namespace Library_Business.Repository.Interfaces
         public Task<BookDto> GetBookDetail(int masterBookId);
 
         public Task RequestBook(BookRequestDto bookRequestDto);
+
+        public Task<int> IssueBook(IssueBookDto issueBookDto);
     }
 }
