@@ -35,7 +35,6 @@ export class AccountService {
     return this.httpClinet.post(this.baseUrl + 'users/register', model).pipe(
       map((user: User) => {
         if (user) {
-          debugger;
           this.setCurrentUser(user);
         }
       })

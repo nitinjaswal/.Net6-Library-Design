@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { FilterPipe } from './_pipes/filter.pipe';
 import { HomeComponent } from './home/home.component';
+import { RequestedBooksComponent } from './books/requested-books/requested-books.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { HomeComponent } from './home/home.component';
     RegisterComponent,
     BookCreateComponent,
     FilterPipe,
-    HomeComponent
+    HomeComponent,
+    RequestedBooksComponent
   ],
   imports: [
     BrowserAnimationsModule,

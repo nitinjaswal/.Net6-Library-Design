@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { BookCreateComponent } from './books/book-create/book-create.component';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
 import { BooksListComponent } from './books/books-list/books-list.component';
+import { RequestedBooksComponent } from './books/requested-books/requested-books.component';
 import { HomeComponent } from './home/home.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { AuthGuard } from './_guards/auth.guard';
@@ -19,6 +20,11 @@ const routes: Routes = [
   {
     path: 'createbook',
     component: BookCreateComponent,
+    canActivate: [AuthGuard, AdminGuard],
+  },
+  {
+    path: 'requestedbooks',
+    component: RequestedBooksComponent,
     canActivate: [AuthGuard, AdminGuard],
   },
   // {
