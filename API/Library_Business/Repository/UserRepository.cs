@@ -39,7 +39,7 @@ namespace Library_Business.Repository
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
 

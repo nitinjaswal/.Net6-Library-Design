@@ -165,7 +165,7 @@ namespace Library_Business.Repository
             }
         }
 
-        public async Task RequestBook(BookRequestDto bookRequestDto)
+        public async Task<int> RequestBook(BookRequestDto bookRequestDto)
         {
             var procedureName = "usp_RequestBook";
             var parameters = new DynamicParameters();
@@ -178,6 +178,7 @@ namespace Library_Business.Repository
             using (var connection = _context.CreateConnection())
             {
                 var result = await connection.ExecuteAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                return result;
             }
         }
     }
