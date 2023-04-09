@@ -8,7 +8,11 @@
           >Search Books</a
         >
       </li>
-      <li class="nav-item" *ngIf="loggedIn"   [ngStyle]="{'display': (role=='Student') ? 'block' : 'none'}">
+      <li
+        class="nav-item"
+        *ngIf="loggedIn"
+        [ngStyle]="{ display: role == 'Student' ? 'block' : 'none' }"
+      >
         <a class="nav-link" routerLinkActive="active" href="#">Return Book</a>
       </li>
       <li class="nav-item" *ngIf="loggedIn">
@@ -16,14 +20,26 @@
           class="nav-link"
           routerLinkActive="active"
           routerLink="/requestedbooks"
-          [ngStyle]="{'display': (role=='Student') ? 'none' : 'block'}"
+          [ngStyle]="{ display: role == 'Student' ? 'none' : 'block' }"
           >Requested Books</a
         >
       </li>
       <li class="nav-item" *ngIf="loggedIn">
-        <a class="nav-link" routerLinkActive="active" routerLink="/createbook"
-        [ngStyle]="{'display': (role=='Student') ? 'none' : 'block'}"
+        <a
+          class="nav-link"
+          routerLinkActive="active"
+          routerLink="/createbook"
+          [ngStyle]="{ display: role == 'Student' ? 'none' : 'block' }"
           >Create Book</a
+        >
+      </li>
+      <li class="nav-item" *ngIf="loggedIn">
+        <a
+          class="nav-link"
+          routerLinkActive="active"
+          routerLink="/issuebook"
+          [ngStyle]="{ display: role == 'Student' ? 'none' : 'block' }"
+          >Issue Book</a
         >
       </li>
       <li class="nav-item" *ngIf="loggedIn" (click)="logout()">

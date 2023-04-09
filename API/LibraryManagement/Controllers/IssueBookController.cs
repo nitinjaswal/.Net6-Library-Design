@@ -15,7 +15,7 @@ namespace LibraryManagement.Controllers
             _booksRepository = booksRepository;
         }
 
-        [HttpPost("issuebook")]
+        [HttpPost]
         public async Task<ActionResult> IssueBook(IssueBookDto issueBookDto)
         {
             return Ok(await _booksRepository.IssueBook(issueBookDto));

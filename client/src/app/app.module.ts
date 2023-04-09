@@ -19,6 +19,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { FilterPipe } from './_pipes/filter.pipe';
 import { HomeComponent } from './home/home.component';
 import { RequestedBooksComponent } from './books/requested-books/requested-books.component';
+import { BookIssueComponent } from './books/book-issue/book-issue.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { RequestedBooksComponent } from './books/requested-books/requested-books
     BookCreateComponent,
     FilterPipe,
     HomeComponent,
-    RequestedBooksComponent
+    RequestedBooksComponent,
+    BookIssueComponent
   ],
   imports: [
     BrowserAnimationsModule,

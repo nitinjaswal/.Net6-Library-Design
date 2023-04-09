@@ -1,0 +1,55 @@
+<form [formGroup]="issueBookForm" novalidate (ngSubmit)="issueBook()">
+  <fieldset>
+    <div class="form-group col-5">
+      <label class="form-label mt-4">Book</label>
+      <select class="form-select" formControlName="masterbookId">
+        <option disabled>Select Book</option>
+        <option *ngFor="let book of bookMasterList" [value]="book.id">
+          {{ book.name }}
+        </option>
+      </select>
+      <span
+        *ngIf="
+          registerIssueBookControl['masterbookId'].touched &&
+          registerIssueBookControl['masterbookId'].invalid
+        "
+        class="text-danger"
+      >
+        <span
+          *ngIf="registerIssueBookControl['masterbookId'].errors?.['required']"
+        >
+          Book selection is required.
+        </span>
+      </span>
+    </div>
+    <div class="form-group col-5">
+      <label class="form-label mt-4">User</label>
+      <select class="form-select" formControlName="userId">
+        <option disabled>Select User</option>
+        <option *ngFor="let user of users" [value]="user.id">
+          {{ user.email }}
+        </option>
+      </select>
+      <span
+        *ngIf="
+          registerIssueBookControl['userId'].touched &&
+          registerIssueBookControl['userId'].invalid
+        "
+        class="text-danger"
+      >
+        <span *ngIf="registerIssueBookControl['userId'].errors?.['required']">
+          User is required.
+        </span>
+      </span>
+    </div>
+  </fieldset>
+
+  <br />
+  <button
+    [disabled]="issueBookForm.invalid"
+    type="submit"
+    class="btn btn-primary"
+  >
+    Issue Book
+  </button>
+</form>

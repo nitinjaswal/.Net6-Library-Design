@@ -8,6 +8,7 @@ import { RequestedBooksComponent } from './books/requested-books/requested-books
 import { HomeComponent } from './home/home.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { AuthGuard } from './_guards/auth.guard';
+import { BookIssueComponent } from './books/book-issue/book-issue.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -20,6 +21,11 @@ const routes: Routes = [
   {
     path: 'createbook',
     component: BookCreateComponent,
+    canActivate: [AuthGuard, AdminGuard],
+  },
+  {
+    path: 'issuebook',
+    component: BookIssueComponent,
     canActivate: [AuthGuard, AdminGuard],
   },
   {

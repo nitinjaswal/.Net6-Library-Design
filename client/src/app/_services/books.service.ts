@@ -27,7 +27,9 @@ export class BooksService {
   }
 
   getCategories() {
-    return this.httpClient.get<Category[]>(this.baseUrl + 'GetBooks/categories');
+    return this.httpClient.get<Category[]>(
+      this.baseUrl + 'GetBooks/categories'
+    );
   }
 
   getType() {
@@ -63,5 +65,9 @@ export class BooksService {
       this.baseUrl + 'RequestBook/requestbook',
       model
     );
+  }
+
+  issueBook(model: any): Observable<any> {
+    return this.httpClient.post(this.baseUrl + 'IssueBook', model);
   }
 }
