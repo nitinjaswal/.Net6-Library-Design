@@ -37,11 +37,7 @@ export class RegisterComponent {
   initializeForm() {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
-      email: [
-        '',
-        Validators.required
-       
-      ],
+      email: ['', Validators.required],
       password: ['', [Validators.required]],
       confirmPassword: [
         '',
@@ -66,7 +62,6 @@ export class RegisterComponent {
     console.log(this.registerForm.value);
     this.accountService.register(this.registerForm.value).subscribe({
       next: (res) => {
-        debugger;
         this.router.navigateByUrl('/books');
       },
       error: (error: HttpErrorResponse) => {

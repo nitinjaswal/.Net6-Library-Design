@@ -1,0 +1,6 @@
+.bookImage{
+    display: inline-block;
+    max-height: 416px;
+    max-width: 416px;
+    position: inherit;
+}

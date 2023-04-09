@@ -14,8 +14,8 @@ const routes: Routes = [
   { path: 'books', component: BooksListComponent, pathMatch: 'full' },
   {
     path: 'books/:id',
-    component: BookDetailComponent,
-    canActivate: [AuthGuard],
+    component: BookDetailComponent
+  
   },
   {
     path: 'createbook',

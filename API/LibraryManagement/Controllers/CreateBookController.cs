@@ -12,7 +12,7 @@ namespace LibraryManagement.Controllers
             _booksRepository = booksRepository;
         }
 
-        [HttpPost("createBook")]
+        [HttpPost("masterBook")]
         public async Task<ActionResult> CreateMasterBook([FromForm] BookMasterDto bookMasterDto)
         {
             if (!ModelState.IsValid)
@@ -39,7 +39,7 @@ namespace LibraryManagement.Controllers
             return Ok(result);
         }
 
-        [HttpPost("createBookISBN")]
+        [HttpPost("ISBN")]
         public async Task<ActionResult> CreateBookISBN(BookISBNDto bookISBNDto)
         {
             if (!ModelState.IsValid)

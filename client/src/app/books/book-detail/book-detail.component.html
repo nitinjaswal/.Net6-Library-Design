@@ -2,7 +2,7 @@
   <img
     [src]="baseUrl + book?.imagePath"
     [alt]="book?.title"
-    class="event-image"
+    class="bookImage"
   />
 
   <div class="row">
@@ -20,15 +20,14 @@
       <div><strong>Description:</strong> {{ book?.description }}</div>
       <div><strong>Type:</strong> {{ book?.bookType }}</div>
       <div><strong>Category:</strong> {{ book?.category }}</div>
-      <div><strong>Status:</strong> {{ book?.status }}</div>
       <div><strong>Count:</strong> {{ book?.bookCount }}</div>
     </div>
-    <button
+    <!-- <button
       (click)="requestBook()"
       class="btn btn-primary"
       fdprocessedid="0hur3k"
     >
       Request Book
-    </button>
+    </button> -->
   </div>
 </div>

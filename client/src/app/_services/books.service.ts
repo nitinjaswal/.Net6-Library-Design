@@ -5,10 +5,8 @@ import { environment } from 'src/environments/environment';
 import { Category } from '../_models/category';
 import { Type } from '../_models/type';
 import { Status } from '../_models/status';
-import { catchError, map, Observable, of } from 'rxjs';
-import { BookMaster } from '../_models/bookmaster';
+import { Observable, of } from 'rxjs';
 import { BookMasterList } from '../_models/bookmasterlist';
-import { BookISBN } from '../_models/bookisbn';
 
 @Injectable({
   providedIn: 'root',
@@ -23,48 +21,47 @@ export class BooksService {
       return of(result as T);
     };
   }
+
   getBooks() {
-    return this.httpClient.get<Book[]>(this.baseUrl + 'books');
+    return this.httpClient.get<Book[]>(this.baseUrl + 'GetBooks');
   }
 
   getCategories() {
-    return this.httpClient.get<Category[]>(this.baseUrl + 'books/categories');
+    return this.httpClient.get<Category[]>(this.baseUrl + 'GetBooks/categories');
   }
 
   getType() {
-    return this.httpClient.get<Type[]>(this.baseUrl + 'books/type');
+    return this.httpClient.get<Type[]>(this.baseUrl + 'GetBooks/type');
   }
 
   getStatus() {
-    return this.httpClient.get<Status[]>(this.baseUrl + 'books/status');
+    return this.httpClient.get<Status[]>(this.baseUrl + 'GetBooks/status');
   }
 
   getMasterBooks() {
     return this.httpClient.get<BookMasterList[]>(
-      this.baseUrl + 'books/getmasterbooks'
+      this.baseUrl + 'GetBooks/getmasterbooks'
     );
   }
 
   getBooKDetail(bookId: number) {
     return this.httpClient.get<Book>(
-      this.baseUrl + 'books/bookdetail?bookMasterId=' + bookId
+      this.baseUrl + 'GetBooks/bookdetail?bookMasterId=' + bookId
     );
   }
 
   createBookMaster(model: any) {
-    const options = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-    };
-
-    return this.httpClient.post(this.baseUrl + 'Books/createBook', model);
+    return this.httpClient.post(this.baseUrl + 'CreateBook/masterBook', model);
   }
 
   createBookISBN(model: any): Observable<any> {
-    return this.httpClient.post(this.baseUrl + 'Books/createBookISBN', model);
+    return this.httpClient.post(this.baseUrl + 'CreateBook/ISBN', model);
   }
 
   createBookRequest(model: any): Observable<any> {
-    debugger;
-    return this.httpClient.post(this.baseUrl + 'Books/requestbook', model);
+    return this.httpClient.post(
+      this.baseUrl + 'RequestBook/requestbook',
+      model
+    );
   }
 }
