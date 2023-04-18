@@ -18,5 +18,6 @@ namespace Library_Business.Repository.Interfaces
         public Task<int> RequestBook(BookRequestDto bookRequestDto);
 
         public Task<int> IssueBook(IssueBookDto issueBookDto);
+        public Task<IEnumerable<BookISBNDto>> GetISBNs();
     }
 }

@@ -5,6 +5,7 @@ using Library_Business.Repository.Interfaces;
 using Library_Data;
 using Library_Data.Entities;
 using System.Data;
+using System.Reflection.Metadata;
 
 namespace Library_Business.Repository
 {
@@ -179,6 +180,17 @@ namespace Library_Business.Repository
             {
                 var result = await connection.ExecuteAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
                 return result;
+            }
+        }
+
+        public async Task<IEnumerable<BookISBNDto>> GetISBNs()
+        {
+            var procedureName = "usp_GetISBNs";
+            using (var connection = _context.CreateConnection())
+            {
+                var result = await connection.QueryAsync<BookISBN>
+                    (procedureName, commandType: CommandType.StoredProcedure);
+                return _mapper.Map<IEnumerable<BookISBN>, IEnumerable<BookISBNDto>>(result);
             }
         }
     }

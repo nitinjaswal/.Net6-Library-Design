@@ -48,5 +48,10 @@ namespace LibraryManagement.Controllers
             return Ok(await _booksRepository.GetBookDetail(bookMasterId));
         }
 
+        [HttpGet("getISBNs")]
+        public async Task<ActionResult> GetAllISBNs()
+        {
+            return Ok(await _booksRepository.GetISBNs());
+        }
     }
 }

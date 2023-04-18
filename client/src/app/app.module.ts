@@ -20,7 +20,7 @@ import { FilterPipe } from './_pipes/filter.pipe';
 import { HomeComponent } from './home/home.component';
 import { RequestedBooksComponent } from './books/requested-books/requested-books.component';
 import { BookIssueComponent } from './books/book-issue/book-issue.component';
-
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +33,7 @@ import { BookIssueComponent } from './books/book-issue/book-issue.component';
     FilterPipe,
     HomeComponent,
     RequestedBooksComponent,
-    BookIssueComponent
+    BookIssueComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -43,7 +43,8 @@ import { BookIssueComponent } from './books/book-issue/book-issue.component';
     ReactiveFormsModule,
     FormsModule,
     Ng2SearchPipeModule,
-    ToastrModule.forRoot(), 
+    AutocompleteLibModule,
+    ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
   ],
   providers: [],

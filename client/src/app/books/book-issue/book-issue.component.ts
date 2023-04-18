@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { BookISBN } from 'src/app/_models/bookisbn';
 import { BookMasterList } from 'src/app/_models/bookmasterlist';
 import { User } from 'src/app/_models/user';
 import { BooksService } from 'src/app/_services/books.service';
@@ -16,6 +17,7 @@ export class BookIssueComponent implements OnInit {
   issueBookForm: FormGroup;
   users: User[] = [];
   bookMasterList: BookMasterList[] = [];
+  isbn: BookISBN[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -26,9 +28,13 @@ export class BookIssueComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
+    this.getISBNs();
     this.getUsers();
-    this.getMasterBooks();
+    // this.getMasterBooks();
   }
+
+  isbnSearchKeyword = 'isbn';
+  userSearchKeyword = 'email';
 
   initializeForm() {
     this.issueBookForm = this.fb.group({
@@ -37,9 +43,16 @@ export class BookIssueComponent implements OnInit {
     });
   }
 
+  getISBNs() {
+    this.bookService.getISBNs().subscribe((data) => {
+      this.isbn = data;
+    });
+  }
+
   getUsers() {
     this.userService.getUsers().subscribe((data) => {
       this.users = data;
+      console.log(this.users);
     });
   }
 
