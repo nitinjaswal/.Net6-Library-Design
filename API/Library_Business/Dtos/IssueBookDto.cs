@@ -3,6 +3,6 @@
     public class IssueBookDto
     {
         public int UserId { get; set; }
-        public int MasterBookId { get; set; }
+        public string ISBN { get; set; }
     }
 }

@@ -25,7 +25,7 @@ export class BookDetailComponent implements OnInit {
     private bookService: BooksService,
     private accountService: AccountService,
     private route: ActivatedRoute,
-    private toastr:ToastrService
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +42,7 @@ export class BookDetailComponent implements OnInit {
   }
 
   getBookDetail() {
+    debugger;
     this.bookId = parseInt(this.route.snapshot.paramMap.get('id'));
     this.bookService.getBooKDetail(this.bookId).subscribe((response) => {
       this.book = response;
@@ -66,7 +67,4 @@ export class BookDetailComponent implements OnInit {
       },
     });
   }
-
-
- 
 }

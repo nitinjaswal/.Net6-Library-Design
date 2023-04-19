@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { BookISBN } from 'src/app/_models/bookisbn';
 import { BookMasterList } from 'src/app/_models/bookmasterlist';
+import { IssueBook } from 'src/app/_models/issue-book.model';
 import { User } from 'src/app/_models/user';
 import { BooksService } from 'src/app/_services/books.service';
 import { UserService } from 'src/app/_services/user.service';
@@ -16,8 +17,10 @@ import { UserService } from 'src/app/_services/user.service';
 export class BookIssueComponent implements OnInit {
   issueBookForm: FormGroup;
   users: User[] = [];
-  bookMasterList: BookMasterList[] = [];
   isbn: BookISBN[] = [];
+  selectedISBN: string;
+  selectedUser: number;
+  bookMasterList: BookMasterList[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -66,8 +69,31 @@ export class BookIssueComponent implements OnInit {
     return this.issueBookForm.controls;
   }
 
+  selectISBN(item) {
+    this.selectedISBN = item.isbn;
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  selectUser(item) {
+    this.selectedUser = item.id;
+  }
+
+  onUserChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
   issueBook() {
-    this.bookService.issueBook(this.issueBookForm.value).subscribe({
+    let model = new IssueBook();
+    debugger;
+    model.UserId = this.selectedUser;
+    model.ISBN = this.selectedISBN;
+
+    this.bookService.issueBook(model).subscribe({
       next: (res) => {
         console.log(res);
         this.toastr.success('Book issued successfully.');
