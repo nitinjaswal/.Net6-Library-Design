@@ -1,6 +1,5 @@
 ﻿using Library_Business.Dtos;
 using Library_Business.Repository.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagement.Controllers
@@ -9,16 +8,16 @@ namespace LibraryManagement.Controllers
     [ApiController]
     public class IssueBookController : BaseApiController
     {
-        private readonly IBooksRepository _booksRepository;
-        public IssueBookController(IBooksRepository booksRepository)
+        private readonly IIssueBookRepository _issueBookRepository;
+        public IssueBookController(IIssueBookRepository issueBookRepository)
         {
-            _booksRepository = booksRepository;
+            _issueBookRepository = issueBookRepository;
         }
 
         [HttpPost]
         public async Task<ActionResult> IssueBook(IssueBookDto issueBookDto)
         {
-            return Ok(await _booksRepository.IssueBook(issueBookDto));
+            return Ok(await _issueBookRepository.IssueBook(issueBookDto));
         }        
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Library_Business.Dtos;
+using Library_Business.Repository;
 using Library_Business.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,10 +7,10 @@ namespace LibraryManagement.Controllers
 {
     public class CreateBookController : BaseApiController
     {
-        private readonly IBooksRepository _booksRepository;
-        public CreateBookController(IBooksRepository booksRepository)
+        private readonly ICreateBookRepository _createBookRepository;
+        public CreateBookController(ICreateBookRepository createBookRepository)
         {
-            _booksRepository = booksRepository;
+            this._createBookRepository = createBookRepository;
         }
 
         [HttpPost("masterBook")]
@@ -23,7 +24,7 @@ namespace LibraryManagement.Controllers
                 return BadRequest("The upload file is emppty.");
             }
 
-            var ifBookExist = await _booksRepository.IfBookExist(bookMasterDto?.Title, bookMasterDto.Author, bookMasterDto.Publisher);
+            var ifBookExist = await _createBookRepository.IfBookExist(bookMasterDto?.Title, bookMasterDto.Author, bookMasterDto.Publisher);
             if (ifBookExist)
                 return BadRequest("Book already exist");
 
@@ -35,7 +36,7 @@ namespace LibraryManagement.Controllers
                 await bookMasterDto.BookImage.CopyToAsync(stream);
             }
 
-            var result = await _booksRepository.CreateMasterBook(bookMasterDto);
+            var result = await _createBookRepository.CreateMasterBook(bookMasterDto);
             return Ok(result);
         }
 
@@ -45,7 +46,7 @@ namespace LibraryManagement.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _booksRepository.CreateBookISBN(bookISBNDto);
+            var result = await _createBookRepository.CreateBookISBN(bookISBNDto);
             if (result == -1) return BadRequest("ISBN already exist.");
             return Ok(result);
         }
