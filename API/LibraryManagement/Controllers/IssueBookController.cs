@@ -19,8 +19,6 @@ namespace LibraryManagement.Controllers
         public async Task<ActionResult> IssueBook(IssueBookDto issueBookDto)
         {
             return Ok(await _booksRepository.IssueBook(issueBookDto));
-        }
-
-        
+        }        
     }
 }
