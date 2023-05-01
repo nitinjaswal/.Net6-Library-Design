@@ -5,7 +5,6 @@ using Library_Business.Repository.Interfaces;
 using Library_Data;
 using Library_Data.Entities;
 using System.Data;
-using System.Reflection.Metadata;
 
 namespace Library_Business.Repository
 {
@@ -90,38 +89,6 @@ namespace Library_Business.Repository
                 var result = await connection.QueryAsync<MasterBookListDto>(procedureName, commandType: CommandType.StoredProcedure);
                 return result;
                 // return _mapper.Map<IEnumerable<MasterBookListDto>, IEnumerable<MasterBookListDto>>(result);
-            }
-        }
-
-      
-
-        public async Task<int> IssueBook(IssueBookDto issueBookDto)
-        {
-            var procedureName = "usp_IssueBook";
-            var parameters = new DynamicParameters();
-            parameters.Add("UserId",issueBookDto.UserId,DbType.Int64,ParameterDirection.Input);
-            parameters.Add("BookISBN", issueBookDto.ISBN, DbType.String, ParameterDirection.Input);
-            using (var connection = _context.CreateConnection())
-            {
-                var result = await connection.ExecuteAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
-                return result;
-            }
-        }
-
-        public async Task<int> RequestBook(BookRequestDto bookRequestDto)
-        {
-            var procedureName = "usp_RequestBook";
-            var parameters = new DynamicParameters();
-            parameters.Add("ISBN", bookRequestDto.ISBN, DbType.String, ParameterDirection.Input);
-            parameters.Add("UserId", bookRequestDto.UserId, DbType.Int64, ParameterDirection.Input);
-            parameters.Add("RequestStatus", bookRequestDto.RequestStatus, DbType.String, ParameterDirection.Input);
-            parameters.Add("IsOnlineRequest", 1, DbType.Boolean, ParameterDirection.Input);
-            parameters.Add("CreatedDateTime", DateTime.Now, DbType.DateTime2, ParameterDirection.Input);
-
-            using (var connection = _context.CreateConnection())
-            {
-                var result = await connection.ExecuteAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
-                return result;
             }
         }
 

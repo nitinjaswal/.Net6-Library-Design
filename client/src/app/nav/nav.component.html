@@ -42,6 +42,15 @@
           >Issue Book</a
         >
       </li>
+      <li class="nav-item" *ngIf="loggedIn">
+        <a
+          class="nav-link"
+          routerLinkActive="active"
+          routerLink="/returnbook"
+          [ngStyle]="{ display: role == 'Student' ? 'none' : 'block' }"
+          >Return Book</a
+        >
+      </li>
       <li class="nav-item" *ngIf="loggedIn" (click)="logout()">
         <a class="nav-link disabled" routerLinkActive="active">Logout</a>
       </li>

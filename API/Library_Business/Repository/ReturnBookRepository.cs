@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Dapper;
+using Library_Business.Dtos;
 using Library_Business.Repository.Interfaces;
 using Library_Data;
+using Library_Data.Entities;
 using System.Data;
 
 namespace Library_Business.Repository
@@ -17,16 +19,17 @@ namespace Library_Business.Repository
             _mapper = mapper;
         }
 
-        public async Task<bool> CheckIfFineExist(string ISBN)
+        public async Task<BookTransactionDetailDto> GetBookTransactionDetail(string ISBN)
         {
-            var procedureName = "usp_CheckUserFine";
+            var procedureName = "usp_BookTransactionDetail";
             var parameters = new DynamicParameters();
-            parameters.Add("BookISBN", ISBN, DbType.String, ParameterDirection.Input);
+            parameters.Add("ISBN", ISBN, DbType.String, ParameterDirection.Input);
 
             using (var connection = _context.CreateConnection())
             {
-                var result =  connection.ExecuteScalar(procedureName, parameters, commandType: CommandType.StoredProcedure);
-                return Convert.ToBoolean(result);
+                var result = await connection.QueryFirstOrDefaultAsync<BookTransactionDetail>
+                   (procedureName, parameters, commandType: CommandType.StoredProcedure);
+                return _mapper.Map<BookTransactionDetail,BookTransactionDetailDto>(result);
             }
         }
 

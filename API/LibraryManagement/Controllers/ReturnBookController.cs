@@ -1,5 +1,4 @@
 ﻿using Library_Business.Dtos;
-using Library_Business.Repository;
 using Library_Business.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,15 +17,15 @@ namespace LibraryManagement.Controllers
         }
 
         // GET: api/<ReturnBookController>
-        [HttpGet("CheckBookFine")]
+        [HttpGet("BookTransactionDetail")]
         public async Task<ActionResult> Get(string ISBN)
         {
-            return Ok(await _returnBookRepository.CheckIfFineExist(ISBN));
+            return Ok(await _returnBookRepository.GetBookTransactionDetail(ISBN));
         }
 
        
         // POST api/<ReturnBookController>
-        [HttpPost("returnBook")]
+        [HttpPost]
         public async Task<ActionResult> Post(BookReturnDto bookReturnDto)
         {
            return Ok( _returnBookRepository.ReturnBook(bookReturnDto.UserId, bookReturnDto.ISBN));

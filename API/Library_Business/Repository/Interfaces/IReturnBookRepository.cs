@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library_Business.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Library_Business.Repository.Interfaces
 {
     public interface IReturnBookRepository
     {
-        public Task<bool> CheckIfFineExist(string ISBN);
+        public Task<BookTransactionDetailDto> GetBookTransactionDetail(string ISBN);
         public Task ReturnBook(int UserId, string ISBN);
     }
 }

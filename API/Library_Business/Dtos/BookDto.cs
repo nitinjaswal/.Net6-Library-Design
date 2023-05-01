@@ -5,7 +5,6 @@ namespace Library_Business.Dtos
     {
         public int Id { get; set; }
         public int BookCount { get; set; }
-
         public string Title { get; set; }
         public string Publisher { get; set; }
         public string AuthorName { get; set; }

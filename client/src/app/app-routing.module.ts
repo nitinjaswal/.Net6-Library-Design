@@ -9,14 +9,14 @@ import { HomeComponent } from './home/home.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { AuthGuard } from './_guards/auth.guard';
 import { BookIssueComponent } from './books/book-issue/book-issue.component';
+import { BookReturnComponent } from './books/book-return/book-return.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'books', component: BooksListComponent, pathMatch: 'full' },
   {
     path: 'books/:id',
-    component: BookDetailComponent
-  
+    component: BookDetailComponent,
   },
   {
     path: 'createbook',
@@ -26,6 +26,11 @@ const routes: Routes = [
   {
     path: 'issuebook',
     component: BookIssueComponent,
+    canActivate: [AuthGuard, AdminGuard],
+  },
+  {
+    path: 'returnbook',
+    component: BookReturnComponent,
     canActivate: [AuthGuard, AdminGuard],
   },
   {

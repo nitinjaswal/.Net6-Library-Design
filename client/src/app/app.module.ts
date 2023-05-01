@@ -21,6 +21,7 @@ import { HomeComponent } from './home/home.component';
 import { RequestedBooksComponent } from './books/requested-books/requested-books.component';
 import { BookIssueComponent } from './books/book-issue/book-issue.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { BookReturnComponent } from './books/book-return/book-return.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +35,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     HomeComponent,
     RequestedBooksComponent,
     BookIssueComponent,
+    BookReturnComponent,
   ],
   imports: [
     BrowserAnimationsModule,
