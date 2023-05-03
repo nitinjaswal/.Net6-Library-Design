@@ -1,4 +1,4 @@
-<form [formGroup]="returnBookForm" novalidate (ngSubmit)="issueBook()">
+<form [formGroup]="returnBookForm" novalidate (ngSubmit)="returnBook()">
   <fieldset>
     <div class="form-group col-5">
       <label class="form-label mt-4">Book ISBN#</label>
@@ -11,7 +11,7 @@
         (inputChanged)="onChangeSearch($event)"
         [itemTemplate]="itemTemplate"
         [notFoundTemplate]="notFoundTemplate"
-        formControlName="masterbookId"
+        formControlName="ISBN"
       >
       </ng-autocomplete>
 
@@ -24,14 +24,12 @@
       </ng-template>
       <span
         *ngIf="
-          registerReturnBookControl['masterbookId'].touched &&
-          registerReturnBookControl['masterbookId'].invalid
+          registerReturnBookControl['ISBN'].touched &&
+          registerReturnBookControl['ISBN'].invalid
         "
         class="text-danger"
       >
-        <span
-          *ngIf="registerReturnBookControl['masterbookId'].errors?.['required']"
-        >
+        <span *ngIf="registerReturnBookControl['ISBN'].errors?.['required']">
           Book ISBN is required.
         </span>
       </span>

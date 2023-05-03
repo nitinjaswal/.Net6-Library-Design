@@ -10,6 +10,6 @@ namespace Library_Business.Repository.Interfaces
     public interface IReturnBookRepository
     {
         public Task<BookTransactionDetailDto> GetBookTransactionDetail(string ISBN);
-        public Task ReturnBook(int UserId, string ISBN);
+        public Task<int> ReturnBook(string ISBN);
     }
 }

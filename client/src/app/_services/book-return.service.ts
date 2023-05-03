@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -17,7 +17,10 @@ export class BookReturnService {
     );
   }
 
-  returnBook(model: any): Observable<any> {
-    return this.httpClient.post(this.baseUrl + 'ReturnBook', model);
+  returnBook(ISBN: string): Observable<any> {
+    const params = new HttpParams().set('ISBN', ISBN);
+    return this.httpClient.post(this.baseUrl + 'ReturnBook', null, {
+      params: params,
+    });
   }
 }

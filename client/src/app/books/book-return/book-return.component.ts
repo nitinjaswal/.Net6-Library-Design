@@ -43,8 +43,7 @@ export class BookReturnComponent implements OnInit {
 
   initializeForm() {
     this.returnBookForm = this.fb.group({
-      userId: ['', [Validators.required]],
-      masterbookId: ['', [Validators.required]],
+      ISBN: ['', [Validators.required]],
     });
   }
 
@@ -83,13 +82,12 @@ export class BookReturnComponent implements OnInit {
     this.selectedUser = item.id;
   }
 
-  issueBook() {
+  returnBook() {
     let model = new IssueBook();
     debugger;
-    model.UserId = this.selectedUser;
     model.ISBN = this.selectedISBN;
 
-    this.bookReturnService.returnBook(model).subscribe({
+    this.bookReturnService.returnBook(this.selectedISBN).subscribe({
       next: (res) => {
         console.log(res);
         this.toastr.success('Book returned successfully.');

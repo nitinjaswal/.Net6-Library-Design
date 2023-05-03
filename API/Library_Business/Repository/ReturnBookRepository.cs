@@ -33,16 +33,15 @@ namespace Library_Business.Repository
             }
         }
 
-        public async Task ReturnBook(int UserId, string ISBN)
+        public async Task<int> ReturnBook(string ISBN)
         {
             var procedureName = "usp_ReturnBook";
             var parameters = new DynamicParameters();
-            parameters.Add("UserId", UserId, DbType.Int64, ParameterDirection.Input);
             parameters.Add("BookISBN", ISBN, DbType.String, ParameterDirection.Input);
 
             using (var connection = _context.CreateConnection())
             {
-                await connection.ExecuteAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                return await connection.ExecuteAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
             }
         }
     }

@@ -26,9 +26,9 @@ namespace LibraryManagement.Controllers
        
         // POST api/<ReturnBookController>
         [HttpPost]
-        public async Task<ActionResult> Post(BookReturnDto bookReturnDto)
+        public async Task<IActionResult> Post([FromQuery]string ISBN)
         {
-           return Ok( _returnBookRepository.ReturnBook(bookReturnDto.UserId, bookReturnDto.ISBN));
+           return Ok( await _returnBookRepository.ReturnBook(ISBN));
         }
     }
 }
