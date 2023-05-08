@@ -4,13 +4,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Category } from 'src/app/_models/category';
 import { Status } from 'src/app/_models/status';
 import { Type } from 'src/app/_models/type';
-import { BooksService } from 'src/app/_services/books.service';
+import { BooksService } from 'src/app/_services/books-service';
 import { ToastrService } from 'ngx-toastr';
 import { BookMasterList } from 'src/app/_models/bookmasterlist';
 import {
   HttpDownloadProgressEvent,
   HttpErrorResponse,
 } from '@angular/common/http';
+import { BookCreateService } from 'src/app/_services/book-create.service';
 
 @Component({
   selector: 'app-book-create',
@@ -30,6 +31,7 @@ export class BookCreateComponent implements OnInit {
   isDirty = true;
   constructor(
     private bookService: BooksService,
+    private bookCreateService: BookCreateService,
     private fb: FormBuilder,
     private toastr: ToastrService
   ) {}
@@ -118,7 +120,7 @@ export class BookCreateComponent implements OnInit {
     formData.append('BookImage', this.selectedFile);
 
     console.log(formData);
-    this.bookService.createBookMaster(formData).subscribe({
+    this.bookCreateService.createBookMaster(formData).subscribe({
       next: (res) => {
         this.toastr.success('Master book created successfully.');
         this.createBookForm.reset();
@@ -131,12 +133,11 @@ export class BookCreateComponent implements OnInit {
   }
 
   onSubmitISBN() {
-    this.bookService.createBookISBN(this.createISBNForm.value).subscribe({
+    this.bookCreateService.createBookISBN(this.createISBNForm.value).subscribe({
       next: (res) => {
         console.log(res);
         this.toastr.success('Book ISBN created successfully.');
         this.createISBNForm.reset();
-
       },
       error: (error: HttpErrorResponse) => {
         console.log(error);

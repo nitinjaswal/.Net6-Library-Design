@@ -6,8 +6,9 @@ import { BookISBN } from 'src/app/_models/bookisbn';
 import { BookMasterList } from 'src/app/_models/bookmasterlist';
 import { IssueBook } from 'src/app/_models/issue-book.model';
 import { User } from 'src/app/_models/user';
-import { BooksService } from 'src/app/_services/books.service';
-import { UserService } from 'src/app/_services/user.service';
+import { BooksIssueService } from 'src/app/_services/books-issue.service';
+import { BooksService } from 'src/app/_services/books-service';
+import { UserService } from 'src/app/_services/user-service';
 
 @Component({
   selector: 'app-book-issue',
@@ -21,10 +22,12 @@ export class BookIssueComponent implements OnInit {
   selectedISBN: string;
   selectedUser: number;
   bookMasterList: BookMasterList[] = [];
+  totalBooksIssued: number;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
+    private bookIssueService: BooksIssueService,
     private bookService: BooksService,
     private toastr: ToastrService
   ) {}
@@ -73,18 +76,26 @@ export class BookIssueComponent implements OnInit {
     this.selectedISBN = item.isbn;
   }
 
-  onChangeSearch(search: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-  }
+  onChangeSearch(search: string) {}
 
   selectUser(item) {
     this.selectedUser = item.id;
+    this.getUserBooksPosssessionCount(this.selectedUser);
   }
 
   onUserChangeSearch(search: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
+    this.getUserBooksPosssessionCount(this.selectedUser);
+  }
+
+  getUserBooksPosssessionCount(userId: number) {
+    this.bookIssueService
+      .getUserBooksPosssessionCount(this.selectedUser)
+      .subscribe((data) => {
+        this.totalBooksIssued = data;
+        if (this.totalBooksIssued >= 2) {
+          this.toastr.warning('Maximum book issue limit is reached.');
+        }
+      });
   }
 
   issueBook() {
@@ -93,7 +104,7 @@ export class BookIssueComponent implements OnInit {
     model.UserId = this.selectedUser;
     model.ISBN = this.selectedISBN;
 
-    this.bookService.issueBook(model).subscribe({
+    this.bookIssueService.issueBook(model).subscribe({
       next: (res) => {
         console.log(res);
         this.toastr.success('Book issued successfully.');

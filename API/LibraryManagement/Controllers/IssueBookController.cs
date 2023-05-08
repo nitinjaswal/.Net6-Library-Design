@@ -18,6 +18,12 @@ namespace LibraryManagement.Controllers
         public async Task<ActionResult> IssueBook(IssueBookDto issueBookDto)
         {
             return Ok(await _issueBookRepository.IssueBook(issueBookDto));
-        }        
+        }
+
+        [HttpGet("UserBooksPosssessionCount")]
+        public async Task<ActionResult> GetUserBooksPosssessionCount(int userId)
+        {
+            return Ok(await _issueBookRepository.UserBooksPosssessionCount(userId));
+        }
     }
 }

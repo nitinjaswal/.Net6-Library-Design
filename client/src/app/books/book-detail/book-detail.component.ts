@@ -5,8 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Book } from 'src/app/_models/book';
 import { RequestBook } from 'src/app/_models/request-book';
-import { AccountService } from 'src/app/_services/account.service';
-import { BooksService } from 'src/app/_services/books.service';
+import { AccountService } from 'src/app/_services/account-service';
+import { BooksService } from 'src/app/_services/books-service';
 import { environment } from 'src/environments/environment';
 
 @Component({

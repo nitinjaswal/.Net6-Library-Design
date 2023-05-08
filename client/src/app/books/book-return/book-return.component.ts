@@ -2,12 +2,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, Subject, debounce, debounceTime, map } from 'rxjs';
 import { BookISBN } from 'src/app/_models/bookisbn';
 import { IssueBook } from 'src/app/_models/issue-book.model';
 import { User } from 'src/app/_models/user';
 import { BookReturnService } from 'src/app/_services/book-return.service';
-import { BooksService } from 'src/app/_services/books.service';
-import { UserService } from 'src/app/_services/user.service';
+import { BooksService } from 'src/app/_services/books-service';
+import { UserService } from 'src/app/_services/user-service';
 
 @Component({
   selector: 'app-book-return',
@@ -28,6 +29,9 @@ export class BookReturnComponent implements OnInit {
   isbnSearchKeyword = 'isbn';
   userSearchKeyword = 'email';
 
+  results$: Observable<any>;
+  subject = new Subject();
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -39,6 +43,10 @@ export class BookReturnComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
     this.getISBNs();
+    this.results$ = this.subject.pipe(
+      debounceTime(4000),
+      map((searchText) => this.bookTransactionDetail(searchText))
+    );
   }
 
   initializeForm() {
@@ -58,10 +66,12 @@ export class BookReturnComponent implements OnInit {
   }
 
   onChangeSearch(search: string) {
-    this.bookTransactionDetail(search);
+    const searchText = search;
+    this.subject.next(searchText);
+    // this.bookTransactionDetail(search);
   }
 
-  bookTransactionDetail(ISBN: string) {
+  bookTransactionDetail(ISBN: any) {
     this.selectedISBN = ISBN;
     this.bookReturnService.bookTransactionDetail(ISBN).subscribe((data) => {
       debugger;

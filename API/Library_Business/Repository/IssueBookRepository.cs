@@ -6,7 +6,7 @@ using System.Data;
 
 namespace Library_Business.Repository
 {
-    public class IssueBookRepository: IIssueBookRepository
+    public class IssueBookRepository : IIssueBookRepository
     {
         private readonly AppDbContext _context;
 
@@ -25,6 +25,18 @@ namespace Library_Business.Repository
             {
                 var result = await connection.ExecuteAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
                 return result;
+            }
+        }
+
+        public async Task<int> UserBooksPosssessionCount(int UserId)
+        {
+            var procedureName = "usp_CheckTotalBookIssuedToUser";
+            var parameters = new DynamicParameters();
+            parameters.Add("UserId", UserId, DbType.Int64, ParameterDirection.Input);
+            using (var connection = _context.CreateConnection())
+            {
+                var result = await connection.ExecuteScalarAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                return (int)result;
             }
         }
     }

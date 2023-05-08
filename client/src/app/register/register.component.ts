@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AccountService } from '../_services/account.service';
+import { AccountService } from '../_services/account-service';
 
 @Component({
   selector: 'app-register',

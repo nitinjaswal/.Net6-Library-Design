@@ -1,42 +1,6 @@
 <form [formGroup]="issueBookForm" novalidate (ngSubmit)="issueBook()">
   <fieldset>
     <div class="form-group col-5">
-      <label class="form-label mt-4">Book ISBN#</label>
-
-      <ng-autocomplete
-        [data]="isbn"
-        [searchKeyword]="isbnSearchKeyword"
-        placeholder="Select ISBN"
-        (selected)="selectISBN($event)"
-        (inputChanged)="onChangeSearch($event)"
-        [itemTemplate]="itemTemplate"
-        [notFoundTemplate]="notFoundTemplate"
-        formControlName="masterbookId"
-      >
-      </ng-autocomplete>
-
-      <ng-template #itemTemplate let-item>
-        <a [innerHTML]="item.isbn"></a>
-      </ng-template>
-
-      <ng-template #notFoundTemplate let-notFound>
-        <div [innerHTML]="notFound"></div>
-      </ng-template>
-      <span
-        *ngIf="
-          registerIssueBookControl['masterbookId'].touched &&
-          registerIssueBookControl['masterbookId'].invalid
-        "
-        class="text-danger"
-      >
-        <span
-          *ngIf="registerIssueBookControl['masterbookId'].errors?.['required']"
-        >
-          Book ISBN is required.
-        </span>
-      </span>
-    </div>
-    <div class="form-group col-5">
       <label class="form-label mt-4">User</label>
       <ng-autocomplete
         [data]="users"
@@ -69,6 +33,44 @@
         </span>
       </span>
     </div>
+    <ng-container *ngIf="totalBooksIssued < 2">
+      <div class="form-group col-5">
+        <label class="form-label mt-4">Book ISBN#</label>
+
+        <ng-autocomplete
+          [data]="isbn"
+          [searchKeyword]="isbnSearchKeyword"
+          placeholder="Select ISBN"
+          (selected)="selectISBN($event)"
+          (inputChanged)="onChangeSearch($event)"
+          [itemTemplate]="itemTemplate"
+          [notFoundTemplate]="notFoundTemplate"
+          formControlName="masterbookId"
+        >
+        </ng-autocomplete>
+
+        <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item.isbn"></a>
+        </ng-template>
+
+        <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+        </ng-template>
+        <span
+          *ngIf="
+            registerIssueBookControl['masterbookId'].touched &&
+            registerIssueBookControl['masterbookId'].invalid
+          "
+          class="text-danger"
+        >
+          <span
+            *ngIf="registerIssueBookControl['masterbookId'].errors?.['required']"
+          >
+            Book ISBN is required.
+          </span>
+        </span>
+      </div>
+    </ng-container>
   </fieldset>
 
   <br />

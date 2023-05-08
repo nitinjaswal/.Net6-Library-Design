@@ -67,10 +67,6 @@ export class BooksService {
     );
   }
 
-  issueBook(model: any): Observable<any> {
-    return this.httpClient.post(this.baseUrl + 'IssueBook', model);
-  }
-
   getISBNs(): Observable<any> {
     return this.httpClient.get(this.baseUrl + 'GetBooks/getISBNs');
   }
