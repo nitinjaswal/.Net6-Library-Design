@@ -1,4 +1,5 @@
 ﻿using Library_Business.Dtos;
+using Library_Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,6 @@ namespace Library_Business.Repository.Interfaces
     {
         public Task<IEnumerable<UserDto>> GetUsers();
         public Task<UserDto> GetUserByEmail(string email);
-        public Task<int> CreateUser(CreateUserDto createUserDto);
+        public Task<int> CreateUser(User createUser);
     }
 }

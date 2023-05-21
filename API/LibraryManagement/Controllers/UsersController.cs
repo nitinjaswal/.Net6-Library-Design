@@ -1,6 +1,9 @@
 ﻿using Library_Business.Dtos;
 using Library_Business.Repository.Interfaces;
+using Library_Data.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
+using System.Text;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,6 +30,16 @@ namespace LibraryManagement.Controllers
 
             if (user == null) return Unauthorized("Invalid username");
 
+            using var hmac = new HMACSHA512(user.PasswordSalt);
+
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+
+            for (int i = 0; i < computedHash.Length; i++)
+            {
+                if (computedHash[i] != user.PasswordHash[i])
+                    return Unauthorized("Invalid password");
+            }
+
             return new UserDto
             {
                 Email = user.Email,
@@ -43,7 +56,19 @@ namespace LibraryManagement.Controllers
             {
                 return BadRequest("Email already exist.");
             }
-            var result = await _userRepository.CreateUser(createUserDto);
+
+            //using: to dispose the object when not in use.
+            using var hmac = new HMACSHA512();//It will generate a random key that we will use as a SALT
+
+            var user = new User
+            {
+                Name = createUserDto.Name,
+                Email = createUserDto.Email,
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(createUserDto.Password)),
+                PasswordSalt = hmac.Key
+            };
+
+            var result = await _userRepository.CreateUser(user);
             return Ok(result);
         }
 

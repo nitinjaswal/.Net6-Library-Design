@@ -18,18 +18,16 @@ namespace Library_Business.Repository
             _mapper = mapper;
         }
 
-        public async Task<int> CreateUser(CreateUserDto createUserDto)
+        public async Task<int> CreateUser(User createUser)
         {
             try
             {
                 var procedureName = "usp_CreateUser";
                 var parameters = new DynamicParameters();
-                parameters.Add("name", createUserDto.Name, DbType.String, ParameterDirection.Input);
-                parameters.Add("email", createUserDto.Email, DbType.String, ParameterDirection.Input);
-                parameters.Add("password", createUserDto.Password, DbType.String, ParameterDirection.Input);
-                parameters.Add("isActive", true, DbType.Boolean, ParameterDirection.Input);
-                parameters.Add("role", "Student", DbType.String, ParameterDirection.Input);
-                parameters.Add("createdDateTime", DateTime.Now, DbType.String, ParameterDirection.Input);
+                parameters.Add("name", createUser.Name, DbType.String, ParameterDirection.Input);
+                parameters.Add("email", createUser.Email, DbType.String, ParameterDirection.Input);
+                parameters.Add("passwordHash", createUser.PasswordHash, DbType.Binary, ParameterDirection.Input);
+                parameters.Add("passwordSalt", createUser.PasswordSalt, DbType.Binary, ParameterDirection.Input);
                 using (var connection = _context.CreateConnection())
                 {
                     var result = await connection.ExecuteAsync

@@ -11,7 +11,8 @@ import { AccountService } from '../_services/account-service';
 export class NavComponent implements OnInit {
   model: any = {};
   loggedIn = false;
-  role: String;
+  role: string;
+  username: string;
 
   constructor(
     private accountService: AccountService,
@@ -37,8 +38,9 @@ export class NavComponent implements OnInit {
         this.loggedIn = true;
         const userString = JSON.parse(localStorage.getItem('user')!);
         debugger;
-        if (userString.role == 'Admin') {
-          this.role = 'Admin';
+        this.username = userString.name;
+        if (userString.role == 'Librarian') {
+          this.role = 'Librarian';
         } else {
           this.role = 'Student';
         }

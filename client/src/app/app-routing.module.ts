@@ -31,7 +31,7 @@ const routes: Routes = [
   {
     path: 'returnbook',
     component: BookReturnComponent,
-    canActivate: [AuthGuard, AdminGuard],
+    canActivate: [AdminGuard, AuthGuard],
   },
   {
     path: 'requestedbooks',

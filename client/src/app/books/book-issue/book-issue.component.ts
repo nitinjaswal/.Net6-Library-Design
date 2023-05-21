@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, Subject, debounceTime, map } from 'rxjs';
 import { BookISBN } from 'src/app/_models/bookisbn';
 import { BookMasterList } from 'src/app/_models/bookmasterlist';
 import { IssueBook } from 'src/app/_models/issue-book.model';
@@ -24,6 +25,9 @@ export class BookIssueComponent implements OnInit {
   bookMasterList: BookMasterList[] = [];
   totalBooksIssued: number;
 
+  results$: Observable<any>;
+  subject = new Subject();
+  
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -36,7 +40,11 @@ export class BookIssueComponent implements OnInit {
     this.initializeForm();
     this.getISBNs();
     this.getUsers();
-    // this.getMasterBooks();
+    
+    this.results$ = this.subject.pipe(
+      debounceTime(4000),
+      map((searchText) => this.getUsers())
+    );
   }
 
   isbnSearchKeyword = 'isbn';

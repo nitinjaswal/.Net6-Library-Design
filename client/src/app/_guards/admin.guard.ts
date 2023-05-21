@@ -20,7 +20,7 @@ export class AdminGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.accountService.currentUser$.pipe(
       map((user) => {
-        if (user.role == 'Admin') {
+        if (user.role == 'Librarian') {
           return true;
         } else {
           this.toastr.error('You are not authorised for this action.');

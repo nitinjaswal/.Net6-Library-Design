@@ -2,14 +2,12 @@
   <div class="card mb-4">
     <div class="card-img-wrapper item">
       <a routerLink="/books/{{ book.id }}">
-      <!-- <a routerLink="/books/" [queryParams]="{ bookId: book.id }"> -->
-        <img
-          src="{{ baseUrl + book.imagePath }}"
-          class="img-fluid"
-        />
+        <!-- <a routerLink="/books/" [queryParams]="{ bookId: book.id }"> -->
+        <img src="{{ baseUrl + book.imagePath }}" class="img-fluid" />
       </a>
     </div>
-    <div>Book Name: {{ book.title }}</div>
-    <div>Status: {{ book.status }}</div>
+    <div>{{ book.title }},{{ book.authorName }}</div>
+    <div>{{ book.status }}</div>
   </div>
 </div>
+

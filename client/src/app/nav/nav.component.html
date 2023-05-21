@@ -13,7 +13,7 @@
         *ngIf="loggedIn"
         [ngStyle]="{ display: role == 'Student' ? 'block' : 'none' }"
       >
-        <a class="nav-link" routerLinkActive="active" href="#">Return Book</a>
+       
       </li>
       <li class="nav-item" *ngIf="loggedIn">
         <a
@@ -55,13 +55,15 @@
         <a class="nav-link disabled" routerLinkActive="active">Logout</a>
       </li>
     </ul>
-    <div class="dropdown" *ngIf="loggedIn" dropdown>
-      <a class="dropdown-toggle text-light ml-2" dropdownToggle>Welcome user</a>
-      <div class="drodpwon-menu mt-3" *dropdownMenu="">
+    <div class="dropdown" *ngIf="loggedIn">
+      <a class="text-light ml-2" style="text-decoration: none"
+        >Welcome {{ username }}</a
+      >
+      <!-- <div class="drodpwon-menu mt-3">
         <a class="drodown-item">Edit Profile</a>
         <div class="dropdown-divider"></div>
         <a class="drodown-item" (click)="logout()">Logout</a>
-      </div>
+      </div> -->
     </div>
     <form
       *ngIf="!loggedIn"
