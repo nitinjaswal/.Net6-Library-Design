@@ -25,7 +25,6 @@ export class NavComponent implements OnInit {
   }
 
   getCurrentUser() {
-    debugger;
     this.accountService.currentUser$.subscribe({
       next: (user) => {
         this.loggedIn = !!user;
@@ -44,14 +43,8 @@ export class NavComponent implements OnInit {
         this.router.navigateByUrl('/books');
         this.loggedIn = true;
         const userString = JSON.parse(localStorage.getItem('user')!);
-        debugger;
         this.username = userString.name;
         this.role = userString.role;
-        // if (userString.role == 'Librarian') {
-        //   this.role = 'Librarian';
-        // } else {
-        //   this.role = 'Student';
-        // }
       },
       error: (error) => {
         this.toastr.error('Invalid Username or Password.');

@@ -74,7 +74,6 @@ export class BookReturnComponent implements OnInit {
   bookTransactionDetail(ISBN: any) {
     this.selectedISBN = ISBN;
     this.bookReturnService.bookTransactionDetail(ISBN).subscribe((data) => {
-      debugger;
       if (data != null) {
         this.userEmail = data.email;
         this.userName = data.name;
@@ -94,7 +93,6 @@ export class BookReturnComponent implements OnInit {
 
   returnBook() {
     let model = new IssueBook();
-    debugger;
     model.ISBN = this.selectedISBN;
 
     this.bookReturnService.returnBook(this.selectedISBN).subscribe({

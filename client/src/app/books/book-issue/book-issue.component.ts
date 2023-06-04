@@ -65,7 +65,6 @@ export class BookIssueComponent implements OnInit {
 
   getUsers() {
     this.userService.getUsers().subscribe((data) => {
-      debugger;
       this.users = data;
       console.log(this.users);
     });
@@ -88,15 +87,8 @@ export class BookIssueComponent implements OnInit {
   onChangeSearch(search: string) {}
 
   selectUser(item) {
-    debugger;
-
     this.getUserBooksPosssessionCount(item.id);
   }
-
-  // onUserChangeSearch(search: string) {
-  //   debugger;
-  //   this.getUserBooksPosssessionCount(2);
-  // }
 
   getUserBooksPosssessionCount(userId: number) {
     this.selectedUser = userId;
@@ -112,7 +104,6 @@ export class BookIssueComponent implements OnInit {
 
   issueBook() {
     let model = new IssueBook();
-    debugger;
     model.UserId = this.selectedUser;
     model.ISBN = this.selectedISBN;
 
