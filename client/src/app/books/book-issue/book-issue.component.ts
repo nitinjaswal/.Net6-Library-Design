@@ -27,7 +27,7 @@ export class BookIssueComponent implements OnInit {
 
   results$: Observable<any>;
   subject = new Subject();
-  
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -40,7 +40,7 @@ export class BookIssueComponent implements OnInit {
     this.initializeForm();
     this.getISBNs();
     this.getUsers();
-    
+
     this.results$ = this.subject.pipe(
       debounceTime(4000),
       map((searchText) => this.getUsers())
@@ -65,6 +65,7 @@ export class BookIssueComponent implements OnInit {
 
   getUsers() {
     this.userService.getUsers().subscribe((data) => {
+      debugger;
       this.users = data;
       console.log(this.users);
     });
@@ -87,15 +88,18 @@ export class BookIssueComponent implements OnInit {
   onChangeSearch(search: string) {}
 
   selectUser(item) {
-    this.selectedUser = item.id;
-    this.getUserBooksPosssessionCount(this.selectedUser);
+    debugger;
+
+    this.getUserBooksPosssessionCount(item.id);
   }
 
-  onUserChangeSearch(search: string) {
-    this.getUserBooksPosssessionCount(this.selectedUser);
-  }
+  // onUserChangeSearch(search: string) {
+  //   debugger;
+  //   this.getUserBooksPosssessionCount(2);
+  // }
 
   getUserBooksPosssessionCount(userId: number) {
+    this.selectedUser = userId;
     this.bookIssueService
       .getUserBooksPosssessionCount(this.selectedUser)
       .subscribe((data) => {

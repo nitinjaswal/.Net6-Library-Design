@@ -17,6 +17,7 @@ const routes: Routes = [
   {
     path: 'books/:id',
     component: BookDetailComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'createbook',
@@ -38,18 +39,6 @@ const routes: Routes = [
     component: RequestedBooksComponent,
     canActivate: [AuthGuard, AdminGuard],
   },
-  // {
-  //   path: '',
-  //   canActivate: [AuthGuard],
-  //   children: [
-  //     { path: 'books/:id', component: BookDetailComponent },
-  //     {
-  //       path: 'createbook',
-  //       component: BookCreateComponent,
-  //       canActivate: [AdminGuard],
-  //     },
-  //   ],
-  // },
 ];
 
 @NgModule({

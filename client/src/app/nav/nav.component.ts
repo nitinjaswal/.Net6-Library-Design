@@ -25,8 +25,15 @@ export class NavComponent implements OnInit {
   }
 
   getCurrentUser() {
+    debugger;
     this.accountService.currentUser$.subscribe({
-      next: (user) => (this.loggedIn = !!user),
+      next: (user) => {
+        this.loggedIn = !!user;
+        if (user) {
+          this.username = user.name;
+          this.role = user.role;
+        }
+      },
       error: (error) => console.log(error),
     });
   }
@@ -39,11 +46,12 @@ export class NavComponent implements OnInit {
         const userString = JSON.parse(localStorage.getItem('user')!);
         debugger;
         this.username = userString.name;
-        if (userString.role == 'Librarian') {
-          this.role = 'Librarian';
-        } else {
-          this.role = 'Student';
-        }
+        this.role = userString.role;
+        // if (userString.role == 'Librarian') {
+        //   this.role = 'Librarian';
+        // } else {
+        //   this.role = 'Student';
+        // }
       },
       error: (error) => {
         this.toastr.error('Invalid Username or Password.');
@@ -51,6 +59,7 @@ export class NavComponent implements OnInit {
       },
     });
   }
+
   logout() {
     this.accountService.logout();
     this.loggedIn = false;
